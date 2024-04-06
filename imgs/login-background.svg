@@ -1,0 +1,34 @@
+<svg width="1232" height="1080" viewBox="0 0 1232 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_3022_3)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M854.459 354.75H1176.32V752.316H854.459V354.75Z" fill="#CADFFF"/>
+<mask id="mask0_3022_3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="184" y="314" width="246" height="328">
+<path d="M184 314.195H429.958V641.847H184V314.195Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_3022_3)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M183.352 320.994H427.173V622.248H183.352V320.994Z" fill="#CADFFF"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1146.07 866.787H1292.37V1047.49H1146.07V866.787Z" fill="#CADFFF"/>
+<mask id="mask1_3022_3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="512" y="785" width="333" height="403">
+<path d="M512.85 785.194H844.421V1187H512.85V785.194Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_3022_3)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M526.709 804.712H841.249V1193.32H526.709V804.712Z" fill="#CADFFF"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M240.599 728.239H421.279V951.42H240.599V728.239Z" fill="#CADFFF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1119.72 -156.086H1275.79V36.6979H1119.72V-156.086Z" fill="#CADFFF"/>
+<path d="M1203.32 969.338L1004.38 575.371L303.547 494.578L306.979 448.662L1026.33 531.615L1235.12 944.94L1203.32 969.338Z" fill="#CADFFF"/>
+<path d="M1000.75 539.295L1445.53 -154.727L1474.8 -126.169L1030.03 567.772L1000.75 539.295Z" fill="#CADFFF"/>
+</g>
+<defs>
+<filter id="filter0_d_3022_3" x="0.100006" y="-409.9" width="1742.46" height="1780.8" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="91.95"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.263333 0 0 0 0 0.6022 0 0 0 0 1 0 0 0 0.4 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3022_3"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3022_3" result="shape"/>
+</filter>
+</defs>
+</svg>

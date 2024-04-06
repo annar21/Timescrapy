@@ -1,0 +1,28 @@
+<svg width="54" height="45" viewBox="0 0 54 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M26.2676 18.6675H38.6926V31.0925H26.2676V18.6675Z" fill="#0069FF"/>
+<mask id="mask0_2849_414" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="17" width="10" height="11">
+<path d="M0.38501 17.4H9.88001V27.64H0.38501V17.4Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_2849_414)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.360107 17.6125H9.77261V27.0275H0.360107V17.6125Z" fill="#0069FF"/>
+</g>
+<mask id="mask1_2849_414" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="43" y="0" width="11" height="11">
+<path d="M43.8 0.517517H53.62V10.36H43.8V0.517517Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_2849_414)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M44.04 0.517517H53.4525V9.93252H44.04V0.517517Z" fill="#0069FF"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M37.5249 34.67H43.1724V40.3175H37.5249V34.67Z" fill="#0069FF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.2852 10.29H23.5002V16.5025H17.2852V10.29Z" fill="#00C2FF"/>
+<mask id="mask2_2849_414" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="13" y="32" width="13" height="13">
+<path d="M13.0801 32.12H25.8801V44.6775H13.0801V32.12Z" fill="white"/>
+</mask>
+<g mask="url(#mask2_2849_414)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.615 32.73H25.7575V44.875H13.615V32.73Z" fill="#00C2FF"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.56982 30.34H9.54482V37.315H2.56982V30.34Z" fill="#00C2FF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M41.3276 20.0225H47.3526V26.0475H41.3276V20.0225Z" fill="#00C2FF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M36.5073 2.70251H42.5323V8.72751H36.5073V2.70251Z" fill="#00C2FF"/>
+<path d="M39.735 37.875L32.055 25.5625L5 23.0375L5.1325 21.6025L32.9025 24.195L40.9625 37.1125L39.735 37.875Z" fill="#0069FF"/>
+<path d="M31.915 24.435L49.085 2.745L50.215 3.6375L33.045 25.325L31.915 24.435Z" fill="#0069FF"/>
+</svg>

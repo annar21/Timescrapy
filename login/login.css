@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-decoration: none;
+    color: #000;
+    font-family: "Istok Web", sans-serif;
+}
+
+/* Header */
+.hcontainer {
+    background-color: #fff;
+    height: 89px;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    box-shadow: 0 1px 4px #00000034;
+}
+
+.logo__text {
+    padding-left: 5px;
+}
+
+.text1 {
+    font-weight: 700;
+}
+
+.text2 {
+    color: #0069FF;
+    font-size: 5.14px;
+    letter-spacing: 4px;
+}
+
+.text2 a {
+    color: #0069FF;
+}
+
+.block__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 50px;
+}
+
+/* Main */
+.mcontainer {
+    background-color: #fcfcfc;
+    margin-top: 2px;
+    min-height: calc(100vh - 89px - 2px);
+    max-height: calc(100vh - 89px - 2px);
+}
+
+.form-div {
+    width: 551px;
+    height: 544px;
+    border-radius: 17px;
+    box-shadow: 0 0 100px #00000034;
+
+    position: absolute;
+    left: 168px;
+    bottom: 268px;
+
+    text-align: center;
+}
+
+.form__title {
+    margin: 46px auto 60px auto;
+}
+
+.tit {
+    font-size: 37px;
+}
+
+.h2 {
+    color: #0B3558;
+}
+
+.inp {
+    border: #DFEAF2 2px solid;
+    border-radius: 17px;
+    width: calc(469px - 24px);
+    height: 60px;
+    padding-left: 24px;
+
+    color: #DFEAF2;
+    font-size: 20px;
+
+}
+/* .inp:focus {
+    outline: 0;
+}  */
+
+#url {
+    margin-bottom: 38px;
+}
+
+#password {
+    margin-bottom: 48px;
+}
+
+.inp::placeholder {
+    font-size: 22px;
+    color: #A6BBD1;
+}
+
+#btn {
+    border-radius: 17px;
+    width: 469px;
+    height: 60px;
+    background-color: #0069FF;
+    border: 2px solid #0069FF;
+
+    transition: all .2s linear;
+    cursor: pointer;
+}
+
+#btn:hover {
+    background-color: #fff;
+}
+
+#btn:hover .btn-text {
+    color: #0069FF;
+}
+
+.btn-text {
+    font-weight: 700;
+    font-size: 28px;
+    color: #fff;
+
+    transition: all .2s linear;
+}
+
+.image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.img {
+    width: 1048px;
+}

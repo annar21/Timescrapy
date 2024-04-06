@@ -29,10 +29,11 @@
 .main {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
-    padding: 112px 89px 152px;
+    padding: 182px 51px 152px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .header {
@@ -217,8 +218,8 @@
 /* Main */
 .card {
     font-family: "Calibri", sans-serif;
-    width: 446px;
-    height: 710px;
+    width: 356px;
+    height: 650px;
     border: 2px solid #0B3558;
     border-radius: 19px;
     position: relative;
@@ -231,35 +232,40 @@
     color: #0B3558;
     font-size: 45px;
     font-weight: 700;
-    margin-top: 35px;
+    margin-top: 20px;
     margin-left: 30px;
-    padding-bottom: 20px;
+    padding-bottom: 11px;
 }
 
 .card__sub-title {
     color: #555555;
     font-size: 24px;
-    width: 357px;
+    max-width: 285px;
     margin-left: 30px;
     padding-bottom: 15px;
 }
 
 .card__price {
-    font-size: 36px;
+    font-size: 38px;
     color: #0B3558;
     font-weight: 700;
     margin-left: 30px;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
+}
+
+.m-y {
+    color: #646464c6;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 .c-btn {
-    width: 390px;
-    height: 62px;
+    width: 87%;
+    height: 49px;
     background-color: #0069ff;
     border: 2px solid #0069ff;
     border-radius: 9px;
-    margin-top: 25px;
-    margin-bottom: 10px;
+    margin: 15px auto 10px;
 
     position: absolute;  
     left: 50%;
@@ -269,12 +275,20 @@
     cursor: pointer;
 }
 
+.card__button {
+    height: 62px;
+    width: 350px;
+    position: absolute; 
+    bottom: 20px;
+}
+
 .c-btn a {
     font-weight: 700;
     font-size: 24px;
     background-color: #0069ff;
     color: #fff;
     transition: all .2s linear;
+    font-family: "Calibri", sans-serif;
 }
 
 .c-btn:hover {
@@ -308,11 +322,11 @@
 
 .block2__title {
     color: #0B3558;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 500;
     font-family: "Poppins", sans-serif;
     background-color: #fbfbfb;
-    padding-left: 32px;
+    padding-left: 20px;
     margin: 32px 0;
 }
 
@@ -320,17 +334,18 @@
     font-size: 26px;
     color: #0B3558;
     display: flex;
-    align-items: center;
+    align-items: top;
     background-color: #fbfbfb;
     padding-left: 32px;
     padding-bottom: 11px;
 }
 
 .mark {
-    width: 3px;
+    width: 4px;
     height: 16px;
     background-color: #00D34A;
     position: relative;
+    bottom: -8px;
     transform: rotate(45deg);
     border-radius: 5px;
     margin-right: 20px;
@@ -348,3 +363,105 @@
     border-radius: 5px;
 }
 
+/* change tariff */
+.change-tariff__wrapper {
+    position: absolute;
+    top: 62px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.change-tariff {
+    background-color: #ECECF1;
+    width: 287px;
+    height: 65px;
+    font-size: 20px;
+    font-family: "Calibri", sans-serif;
+    font-weight: 700;
+    position: relative;
+    border-radius: 10px;
+}
+
+.change-tariff::after {
+    content: "-20%";
+    color: #0069ff;
+    font-size: 15px;
+    font-family: "Calibri", sans-serif;
+    font-weight: 700;
+    text-align: center;
+    width: 45px;
+    height: 25px;
+    border-radius: 5px;
+    line-height: 25px;
+    background-color: #ECECF1;
+    display: block;
+    box-shadow: 0 0 10px 1px #0000003e;
+    position: absolute;
+    right: 0;
+    top: -12.5px;
+    z-index: 11;
+}
+
+.monthly, .yearly, .bcg__effect {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.monthly, .bcg__effect {
+    left: 2px;
+    color: #0069FF;
+}
+
+.monthly, .yearly {
+    width: 132px;
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    z-index: 4;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.yearly {
+    right: 2px;
+    color: #6F707F;
+}
+
+.bcg__effect {
+    width: 132px;
+    height: 56px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 1px #0000002e;
+    border-radius: 10px;
+    z-index: 3;
+    transition: left 0.8s linear;
+}
+
+.on1 {
+    animation: changeColor .6s linear 0s infinite normal forwards;
+}
+
+.off1 {
+    animation: changeColor .6s linear 0s infinite reverse forwards;
+}
+
+.ON1 {
+    color: #0069FF;
+}
+
+.OFF1{
+    color: #6F707F;
+}
+
+/* animation */
+@keyframes changeColor {
+    from {
+        color: #6F707F;
+    }
+
+    to {
+        color: #0069FF;
+    }
+}

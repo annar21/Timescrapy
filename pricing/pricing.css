@@ -250,7 +250,6 @@
     color: #0B3558;
     font-weight: 700;
     margin-left: 30px;
-    /* margin-bottom: 25px; */
 }
 
 .m-y {
@@ -453,6 +452,40 @@
 
 .OFF1{
     color: #6F707F;
+}
+
+.old-price {
+    font-size: 32px;
+    position: relative;
+    top: -5.5px;
+    left: -26px;
+}
+
+.old-price::before {
+    content: "";
+    display: inline-block;
+    background-color: #0069FF;
+    width: 3px;
+    height: 95px;
+    position: absolute;
+    left: 47%;
+    top: -64%;
+    transform: rotate(77deg);
+}
+
+.old-price::after {
+    content: "-20%";
+    font-size: 16px;
+    font-weight: 700;
+    position: absolute;
+    top: 0;
+    right: -40px;
+}
+
+#premiumPrice, #premiumPlusPrice {
+    position: relative;
+    right: -25px;
+    transition: all .3s linear;
 }
 
 /* animation */

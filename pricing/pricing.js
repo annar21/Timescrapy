@@ -1,10 +1,17 @@
 // Variables
 const monthly = document.querySelector(".monthly"),
       yearly = document.querySelector(".yearly"),
-      bcgEffect = document.querySelector(".bcg__effect");
+      bcgEffect = document.querySelector(".bcg__effect"),
+      premiumPrice = document.getElementById("premiumPrice"),
+      premiumPlusPrice = document.getElementById("premiumPlusPrice");
 
 
+const premiumText1 = `$1,99<span class="m-y"> /mo</span>`,
+      premiumPlusText1 = `$2.99<span class="m-y"> /mo</span>`,
+      premiumText2 = `<span class="old-price">$23.99</span><span class="real-price">/ $18.99<span class="m-y"> /year</span>`,
+      premiumPlusText2 = `<span class="old-price">$35.99</span><span class="real-price">/ $28.99<span class="m-y"> /year</span>`;
 
+// Main
 yearly.addEventListener("click", event => {
     if(!yearly.classList.contains("clicked")) {
         yearly.classList.add("on1");
@@ -19,6 +26,17 @@ yearly.addEventListener("click", event => {
             monthly.classList.remove("off1");
             monthly.classList.add("OFF1");
         }, 600);
+
+        premiumPrice.style.opacity = "0";
+        premiumPlusPrice.style.opacity = "0";
+
+        setTimeout(() => {
+            premiumPrice.innerHTML = premiumText2;
+            premiumPlusPrice.innerHTML = premiumText2;
+            premiumPrice.style.opacity = "1";
+            premiumPlusPrice.style.opacity = "1";
+        }, 300);
+
         yearly.classList.add("clicked");
     } 
 });
@@ -38,6 +56,17 @@ monthly.addEventListener("click", event => {
             monthly.classList.remove("OFF1");
             monthly.classList.add("ON1");
         }, 600);
+
+        premiumPrice.style.opacity = "0";
+        premiumPlusPrice.style.opacity = "0";
+
+        setTimeout(() => {
+            premiumPrice.innerHTML = premiumText1;
+            premiumPlusPrice.innerHTML = premiumText1;
+            premiumPrice.style.opacity = "1";
+            premiumPlusPrice.style.opacity = "1";
+        }, 300);
+
         yearly.classList.remove("clicked");
     }
 })

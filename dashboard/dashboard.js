@@ -35,23 +35,23 @@ const options = document.getElementsByClassName("option"),
       weekdaySpan = document.getElementById("Weekday"),
       monthSpan = document.getElementById("Month"),
       dateSpan = document.getElementById("Date"),
-      calendarBody = document.querySelector(".calendar__body");
+      calendarBody = document.querySelector(".calendar__body"),
+      formContainer = document.getElementById("formContainer");
   
 const weekdaysTemplate = `<div class="calendar__item weekday">mon</div>
-<div class="calendar__item weekday">tue</div>
-<div class="calendar__item weekday">wed</div>
-<div class="calendar__item weekday">thu</div>
-<div class="calendar__item weekday">fri</div>
-<div class="calendar__item weekday">sat</div>
-<div class="calendar__item weekday">sun</div>`;
+                          <div class="calendar__item weekday">tue</div>
+                          <div class="calendar__item weekday">wed</div>
+                          <div class="calendar__item weekday">thu</div>
+                          <div class="calendar__item weekday">fri</div>
+                          <div class="calendar__item weekday">sat</div>
+                          <div class="calendar__item weekday">sun</div>`,
+      calendlyForm = `<div class="i"><input type="text" id="CalendlyUrl" placeholder="Enter Calendly URL"></div>
+                      <div class="i"><input type="email" id="email" placeholder="Enter Email"></div>
+                      <div class="i"><button id="add-btn-form">Add</button></div>`,
+      hubspotForm = `<div class="i"><input type="text" id="HubspotUrl" placeholder="Enter Hubspot URL"></div>
+                     <div class="i"><button id="add-btn-form">Add</button></div>`;
 
 let currentDate = new Date();
-    // currentYear = currentDate.getFullYear(),
-    // currentMonth = currentDate.getMonth(),
-    // currentDay = currentDate.getDate(),
-    // currentWeekDay = currentDate.getDay(),
-    // lastDayInTheCurrentMonth_date = new Date(currentYear, currentMonth + 1, 0);
-
 
 let dayDivs = document.getElementsByClassName("filled");
 
@@ -147,3 +147,5 @@ for(const timeItem of timeItems) {
     timeItem.classList.add("toAdd");
     });
 }
+
+// change service(calendly, hubspot)

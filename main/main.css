@@ -7,6 +7,9 @@
     font-family: "Poppins", sans-serif;
 }
 
+button {
+    background: transparent;
+}
 /* Header */
 .hcontainer {
     background-color: #fff;
@@ -20,7 +23,8 @@
 }
 
 .logo__text {
-    padding-left: 5px;
+    margin-left: 7px;
+    margin-top: -7px;
 }
 
 .text1 {
@@ -33,7 +37,7 @@
 }
 
 .text2 a {
-    color: #0069FF;
+    color: #0038FF;
 }
 
 .btn1 {
@@ -41,6 +45,10 @@
     height: 41px;
     cursor: pointer;
     background-color: transparent;
+}
+
+.logo__image {
+    width: 50px;
 }
 
 .link {
@@ -94,11 +102,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 181px;
+    padding-left: 9.4%;
 }
 
 .block__links {
-    padding-right: 95px;
+    padding-right: 5%;
 }
 
 /* Main */
@@ -107,14 +115,13 @@
 }
 .mcontainer {
     margin-top: 2px;
-    padding-bottom: 350px;
-    padding-top: 250px;
-    min-height: calc(100vh - 89px - 250px - 2px - 350px);
-    max-height: calc(100vh - 89px - 250px - 2px - 350px);
+    padding-bottom: 32.41vh; /* 350px */
+    padding-top: 23.15vh;    /* 250px */
+    height: calc(100vh - 32.41vh - 23.15vh - 89px - 2px);
     background-image: url(../imgs/main-background.svg);
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+    background-size: 88%;
+    background-position: 8.6vw -100px;
 
     display: flex;
     justify-content: space-between;
@@ -137,12 +144,47 @@
     font-size: 26px;
     color: #848484;
     max-width: 1051px;
-    margin-bottom: 150px;
+    margin-bottom: 70px;
+    margin-top: 45px;   
 }
 
 .item2 {
     margin-top: 20px;
     font-size: 20px;
+}
+
+.item2__2 {
+    color: #848484;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 18px 0 10px;
+}
+
+.google {
+    background-color: #0069FF;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    cursor: pointer;
+}
+
+.google img, .google p {
+    display: inline-block;
+}
+
+.google-text {
+    font-size: 22px;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    padding-left: 15px;
 }
 
 .link-p {
@@ -164,4 +206,144 @@
 
 .link-p:hover::after {
     width: 100%;
+}
+
+
+/* width */
+@media (max-width: 1660px) {
+    .mcontainer {
+        background-position-y: -65px;
+    }
+}
+
+@media (max-width: 1530px) {
+    .mcontainer {
+        background-position-y: -15px;
+    }
+
+    .main__title {
+        font-size: 57px;
+    }
+
+    .item1 {
+        font-size: 17px;
+        max-width: 729px;
+    }
+
+    .google-text {
+        font-size: 15px;
+        padding-left: 11px;
+    }
+
+    .google img {
+        width: 35px;
+    }
+
+    .item2__2 {
+        font-size: 12px;
+    }
+
+    .item2__3 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .mcontainer {
+        background-position-y: 32px;
+    }
+
+    .main__title {
+        font-size: 50px;
+        margin-bottom: -100px;
+    }
+
+    .item1 {
+        font-size: 16px;
+        max-width: 579px;
+        margin-bottom: 60px;
+    }
+
+    .google-text {
+        font-size: 14px;
+    }
+
+    .item2__3 {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1060px) {
+    .main__title {
+        font-size: 42px;
+        
+    }
+
+    .item1 {
+        font-size: 13px;
+        max-width: 518px;
+        transform: translateY(-70px);
+    }
+
+    .item2__1, .item2__2, .item2__3 {
+        transform: translateY(-70px);
+    }
+}
+
+/* height */
+@media (max-height: 1040px) {
+    .mcontainer {
+        background-size: auto;
+    }
+}
+
+@media (max-height: 994px) {
+    .mcontainer {
+        background-size: 80%;
+        background-position-x: center;
+    }
+}
+
+@media (max-height: 940px) {
+    .mcontainer {
+        background-size: 75%;
+    }
+}
+
+@media (max-height: 881px) {
+    .mcontainer {
+        background-size: 70%;
+    }
+}
+
+@media (max-height: 823px) {
+    .mcontainer {
+        background-size: 65%;
+    }
+
+    .main__title {
+        font-size: 58px;
+    }
+
+    .item1 {
+        font-size: 20px;
+        max-width: 841px;
+    }
+
+    .google-text {
+        font-size: 20px;
+        padding-left: 12px;
+    }
+
+    .item2__3 {
+        font-size: 17px;
+    }
+
+    .google {
+        padding: 10px;
+    }
+
+    .google img {
+        width: 37px;
+    }
 }

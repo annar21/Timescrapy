@@ -1,5 +1,7 @@
 // https://timescrapy.com:5443/signup
 // {email: email, password: pass, calendly_url: url}
+
+// Variables
 const btn = document.getElementById("btn"),
       urlInp = document.getElementById("url"),
       passInp = document.getElementById("password"),
@@ -7,6 +9,8 @@ const btn = document.getElementById("btn"),
 
 const URL = "https://timescrapy.com:5443/signup";
 
+
+// Functions
 async function sha256Hash(input) {
     const encoder = new TextEncoder();
     const data = encoder.encode(input);
@@ -17,12 +21,12 @@ async function sha256Hash(input) {
     const hashedString = hashArray.map(byte => ('00' + byte.toString(16)).slice(-2)).join('');
 
     return hashedString;
-  }
+}
 
 
+// Main
   btn.addEventListener("click", event => {
     event.preventDefault();
-
     const url = urlInp.value,
           email= emailInp.value;
     let password = '';
@@ -46,7 +50,8 @@ async function sha256Hash(input) {
     fetch(URL, {
         body: JSON.stringify(body),
         headers: headers,
-        method: 'POST'
+        method: 'POST',
+        mode: 'no-cors'
     })
     .then(response => {
         if(response.ok) {
@@ -60,5 +65,6 @@ async function sha256Hash(input) {
     .catch(err => {
         console.log(err);
     });
+
 
   });

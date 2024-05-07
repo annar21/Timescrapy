@@ -11,12 +11,15 @@ const premiumText1 = `$1,99<span class="m-y"> /mo</span>`,
       premiumText2 = `<span class="old-price">$23.99</span><span class="real-price">/ $18.99<span class="m-y"> /year</span>`,
       premiumPlusText2 = `<span class="old-price">$35.99</span><span class="real-price">/ $28.99<span class="m-y"> /year</span>`;
 
+const latency = 400;
 // Main
 yearly.addEventListener("click", event => {
     if(!yearly.classList.contains("clicked")) {
         yearly.classList.add("on1");
         monthly.classList.add("off1");
         bcgEffect.style.left = "calc(100% - 134px)";
+        premiumPrice.style.right = "-25px";
+        premiumPlusPrice.style.right = "-25px";
 
         setTimeout(() => {
             yearly.classList.remove("on1");
@@ -25,7 +28,7 @@ yearly.addEventListener("click", event => {
 
             monthly.classList.remove("off1");
             monthly.classList.add("OFF1");
-        }, 600);
+        }, latency);
 
         premiumPrice.style.opacity = "0";
         premiumPlusPrice.style.opacity = "0";
@@ -35,7 +38,7 @@ yearly.addEventListener("click", event => {
             premiumPlusPrice.innerHTML = premiumText2;
             premiumPrice.style.opacity = "1";
             premiumPlusPrice.style.opacity = "1";
-        }, 300);
+        }, latency / 2);
 
         yearly.classList.add("clicked");
     } 
@@ -45,7 +48,9 @@ monthly.addEventListener("click", event => {
     if(yearly.classList.contains("clicked")) {
         yearly.classList.add("off1");
         monthly.classList.add("on1");
-        bcgEffect.style.left = "calc(0% + 2px)";    
+        bcgEffect.style.left = "calc(0% + 2px)";  
+        premiumPrice.style.right = "0px";
+        premiumPlusPrice.style.right = "0px";  
 
         setTimeout(() => {
             yearly.classList.remove("off1");
@@ -55,7 +60,7 @@ monthly.addEventListener("click", event => {
             monthly.classList.remove("on1");
             monthly.classList.remove("OFF1");
             monthly.classList.add("ON1");
-        }, 600);
+        }, latency);
 
         premiumPrice.style.opacity = "0";
         premiumPlusPrice.style.opacity = "0";
@@ -65,7 +70,7 @@ monthly.addEventListener("click", event => {
             premiumPlusPrice.innerHTML = premiumText1;
             premiumPrice.style.opacity = "1";
             premiumPlusPrice.style.opacity = "1";
-        }, 300);
+        }, latency / 2);
 
         yearly.classList.remove("clicked");
     }

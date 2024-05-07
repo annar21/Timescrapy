@@ -1,17 +1,16 @@
-// https://timescrapy.com:5443/login
-// const URL = 'https://timescrapy.com:5443/login'
-// hashed pass, email
-
 // Variables
-const URL = 'https://timescrapy.com:5443/login';
-
-const urlInp = document.getElementById("url"),
+const btn = document.getElementById("btn"),
       passInp = document.getElementById("password"),
-      btn = document.getElementById("btn"),
-      errSpan = document.getElementById("err")
+      emailInp = document.getElementById("email"),
+      errDivPass = document.querySelector('.p'),
+      errDivEmail = document.querySelector('.e'),
+      alertText = document.querySelector('.alert__text'),
+      alert = document.querySelector('.alert'),
+      g = document.querySelector('.g')
 
-// Main  
+const URL = "https://timescrapy.com/login";
 
+// Functions
 async function sha256Hash(input) {
     const encoder = new TextEncoder();
     const data = encoder.encode(input);
@@ -24,49 +23,57 @@ async function sha256Hash(input) {
     return hashedString;
 }
 
-function PostRequest(URL, body) {
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-
-    return fetch(URL, {
+function post(url, body) {
+    return fetch(url, {
+        method: "POST", 
         body: JSON.stringify(body),
-        method: 'POST',
-        headers: headers,
-        mode: "no-cors"
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        headers: {
+            'Content-type': 'application/json'
         }
-        return response.json();
     })
-    .then(data => {
-        console.log('Response:', data);
-        // Process response data as needed
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
 }
 
-btn.addEventListener("click", event => {
+const fn = () => new Promise(resolve => {
+    setTimeout(() => {
+        alertText.style.transition = 'all .5s linear'
+        alert.style.top = '0'
+        alert.style.opacity = '0'
+        alert.style.visibility = 'hidden'
+        resolve()
+    }, 3500)
+})
+
+// Main
+g.addEventListener("click", e => e.preventDefault())
+
+btn.addEventListener("click", async (event) => {
     event.preventDefault()
 
-    let email = emailInp.value,
-        password = ''
+    const hashedPass = await sha256Hash(passInp.value),
+          email = emailInp.value
 
-    sha256Hash(passInp.value)
-        .then(hashedPass => {
-            password = hashedPass
-        })
-        .catch(err => {
-            console.log(err)
-        })
-
+    
     const body = {
-        'password': password,
-        'email': email
-    };
-    PostRequest(URL, body);
+        'email': email,
+        'password': hashedPass
+    }
+
+    post(URL, body)
+        .then(response => {
+            console.log(response)
+            if(response.ok) {
+                return response.json()  
+            }
+            return response.json().then(errData => {
+                alertText.innerText = errData.message
+                alert.style.transition = 'all .3s ease'
+                alert.style.top = '60px'
+                alert.style.opacity = '1'
+                alert.style.visibility = 'visible'
+                fn()
+
+            })
+        })
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
 })

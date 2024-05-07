@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="dashboard.css">
 
@@ -22,7 +22,31 @@
 </head>
 <body>
 
-     <div class="wrapper">
+    <div class="f">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <div class="change">
+                    <div class="background-effect"></div>
+                    <div class="change-cont">
+                        <div class="toCalendly">Calendly</div>
+                        <div class="toHubspot off">Hubspot</div>
+                    </div>
+                </div> <!-- /.change -->
+                <div class="close"></div>
+            </div> <!-- /.form-heaader -->
+            <form class="search-form">
+                <div class="search-form__container" id="formContainer">
+                    <div class="i"><input type="text" id="c-url" placeholder="Enter Calendly URL or Nickname"></div>
+                    <div class="i"><input type="email" id="email" placeholder="Enter Email"></div>
+                    <div class="i"><button id="add-btn-form" class="blue">Add</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="wrapper">
 
         <div class="navbar">
 
@@ -44,9 +68,9 @@
             </nav>
 
             <div class="bottom">
-                <div class="data">
+                <!-- <div class="data">
                     <div class="block"></div>
-                </div>
+                </div> -->
                 <div class="donate">
                     <button class="btn"><a href="#" class="donate__link">DONATE</a></button>
                 </div>
@@ -92,29 +116,15 @@
 
                 </div> <!-- /.personal-data -->
 
-                <div class="form">
+                <div class="guests-list">
                     <div class="add-button">
-                        <button id="add-btn"></button>
+                        <button id="add-btn">Add guests</button>
                     </div>
 
-                    <div class="form-wrapper">
-                        <form class="search-form">
+                    <div id="list">
+                        
+                    </div> <!-- /#list -->
 
-                            <div class="change-servicd__wrapper">
-                                <div class="chnage-service">
-                                    <div class="calendly">Calendly</div>
-                                    <div class="hubspot">Hubspot</div>
-                                    <div class="bcg__effect"></div>
-                                </div>
-                            </div>
-
-                            <div class="search-form__container" id="formContainer">
-                                <div class="i"><input type="text" id="url" placeholder="Enter Calendly URL"></div>
-                                <div class="i"><input type="email" id="email" placeholder="Enter Email"></div>
-                                <div class="i"><button id="add-btn-form">Add</button></div>
-                            </div>
-                        </form>
-                    </div>
                 </div> <!-- /.form -->
 
             </div> <!-- /.item1 -->
@@ -137,14 +147,14 @@
                             <!-- .calendar__item .day .filled .current -->
                         </div>
                         
-                        <div class="time">
+                        <div class="Time">
                             <div class="Weekday-Date"><span id="Weekday"></span>, <span id="Month"></span> <span id="Date"></span></div>
         
                             <div class="time__list">
-                                <div class="time__item toAdd"><p class="time__item-p p1">9:00</p></div>
-                                <div class="time__item"><p class="time__item-p p2">9:30</p></div>
-                                <div class="time__item"><p class="time__item-p p3">10:00</p></div>
-                                <div class="time__item"><p class="time__item-p p4">10:30</p></div>
+                                <div class="time__item toAdd"><div class="time">9:00</div><div class="create-btn">Create</div></div>
+                                <div class="time__item"><div class="time">9:30</div><div class="create-btn">Create</div></div>
+                                <div class="time__item"><div class="time">10:00</div><div class="create-btn">Create</div></div>
+                                <div class="time__item"><div class="time">10:30</div><div class="create-btn">Create</div></div>
                             </div>
                         </div> <!-- /.time -->
     

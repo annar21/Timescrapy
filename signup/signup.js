@@ -1,14 +1,14 @@
-// https://timescrapy.com:5443/signup
-// {email: email, password: pass, calendly_url: url}
-
 // Variables
 const btn = document.getElementById("btn"),
-      urlInp = document.getElementById("url"),
       passInp = document.getElementById("password"),
-      emailInp = document.getElementById("email");
+      emailInp = document.getElementById("email"),
+      errDivPass = document.querySelector('.p'),
+      errDivEmail = document.querySelector('.e'),
+      alertText = document.querySelector('.alert__text'),
+      alert = document.querySelector('.alert'),
+      g = document.querySelector('.g')
 
-const URL = "https://timescrapy.com:5443/signup";
-
+const URL = "https://timescrapy.com/signup";
 
 // Functions
 async function sha256Hash(input) {
@@ -23,48 +23,92 @@ async function sha256Hash(input) {
     return hashedString;
 }
 
+function post(url, body) {
+    return fetch(url, {
+        method: "POST", 
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    })
+}
+
+function validateData(password, email) {
+    let t = true
+
+    if(!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
+        errDivEmail.innerText = 'Please enter a valid email address.'
+        emailInp.classList.add('err')
+
+        t = false
+    } else {
+        emailInp.classList.remove('err')
+        errDivEmail.innerText = ''
+    }
+
+    if(password.length < 8) {
+        errDivPass.innerText = 'Password must be at least 8 characters long.'
+        passInp.classList.add('err')
+        
+        t = false
+    } else if(!(/[a-zA-Z]/.test(password) && /\d/.test(password))) {
+        errDivPass.innerText = 'Password must contain both letters and numbers.'
+        passInp.classList.add('err')
+
+        t = false
+    } else {
+        passInp.classList.remove('err')
+        errDivPass.innerText = ''
+    }
+
+    
+
+    return t
+}
+
+const fn = () => new Promise(resolve => {
+    setTimeout(() => {
+        alertText.style.transition = 'all .5s linear'
+        alert.style.top = '0'
+        alert.style.opacity = '0'
+        alert.style.visibility = 'hidden'
+        resolve()
+    }, 3500)
+})
 
 // Main
-  btn.addEventListener("click", event => {
-    event.preventDefault();
-    const url = urlInp.value,
-          email= emailInp.value;
-    let password = '';
-    sha256Hash(passInp.value)
-        .then(hashedPassword => {
-            password = hashedPassword;
-        })
-        .catch(err => {
-            console.log(err);
-        });
+window.onload = () => window.scrollTo(0, 0)
 
-    const body = {
-        'email': email,
-        'password': password,
-        'calendly_url': url
-    },
-          headers = {
-            'Content-type': 'application/json'
-          }
+g.addEventListener("click", e => e.preventDefault())
 
-    fetch(URL, {
-        body: JSON.stringify(body),
-        headers: headers,
-        method: 'POST',
-        mode: 'no-cors'
-    })
-    .then(response => {
-        if(response.ok) {
-            return response.json();
+btn.addEventListener("click", async (event) => {
+    event.preventDefault()
+
+    const hashedPass = await sha256Hash(passInp.value),
+          email = emailInp.value
+
+    if(validateData(passInp.value, email)) {
+        const body = {
+            'email': email,
+            'password': hashedPass
         }
-        throw new Error("Smth went wrong");
-    })
-    .then(data => {
-        console.log(data);
-    })
-    .catch(err => {
-        console.log(err);
-    });
 
-
-  });
+        post(URL, body)
+            .then(response => {
+                console.log(response)
+                if(response.ok) {
+                    return response.json()  
+                }
+                return response.json().then(errData => {
+                    alertText.innerText = errData.error
+                    alert.style.transition = 'all .3s ease'
+                    alert.style.top = '60px'
+                    alert.style.opacity = '1'
+                    alert.style.visibility = 'visible'
+                    fn()
+                })
+            })
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+    }
+})

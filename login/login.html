@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <title>TimeScrapy || Log In</title>
 </head>
 <body>
@@ -20,7 +24,7 @@
 
                 <div class="block block__logo">
                     <div class="logo__img">
-                        <a href="#"><img src="../imgs/logo.svg" alt="logo"></a>
+                        <a href="#"><img class="logo__image" src="../imgs/logo.svg" alt="logo"></a>
                     </div>
 
                         <div class="logo__text">
@@ -29,24 +33,48 @@
                         </div>
 
                     </div> <!-- /.block__logo -->
+                    
+                    <div class="signup">
+                        <div class="signup_1">Don't have an account?</div>
+                        <div class="signup_2"><a href="#">Sign Up</a></div>
+                    </div>
+            </div>
         </header>
 
         <main class="main">
             <div class="mcontainer">
+                <div class="alert">
+                    <div class="alert__mark"></div>
+                    <div class="alert__text"></div>
+                </div>
 
                 <div class="form-div">
 
                     <div class="form__title">
-                        <p class="tit tit1"><h2 class="h2">Login for your</h2></p>
-                        <p class="tit tit2"><h2 class="h2">TimeScrapy account</h2></p>
+                        <p class="tit tit1"><p class="h2">Log in for your</p></p>
+                        <p class="tit tit2"><p class="h2">TimeScrapy account</p></p>
                     </div>
                     <form class="form">
-                        <input type="text" name="url" id="url" class="inp" placeholder="Enter Your Calendly URL">
-                        <input type="password" name="password" id="password" class="inp" placeholder="Password">
+                        <div class="inp-wrapper">
+                            <input type="text" name="email" id="email" class="inp" placeholder="Enter your email">
+                            <div class="err-text"></div>
+                        </div>
+                        <div class="inp-wrapper">
+                            <input type="password" name="password" id="password" class="inp" placeholder="Password">
+                            <div class="err-text p"></div>
+                        </div>
                         <button id="btn"><p class="btn-text">Log In</p></button>
-                        <span id="err"></span>
+
+                        <div class="google-signin">
+                            <div class="or">OR</div>
+                            <div class="google-btn"><button class="g"><img src="../imgs/google-logo.svg" alt="logo"><p>Log in with Google</p></button></div>
+                        </div>
+                        <!-- <span id="err"></span> -->
                     </form>
 
+                    <div class="signup__link">
+                        <a href="#">Sign Up</a>
+                    </div>
                 </div>
 
                 <div class="image">

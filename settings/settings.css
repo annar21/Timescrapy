@@ -50,17 +50,19 @@
 }
 
 .text1 {
-    font-size: 16px;
+    font-size: 23px;
     font-family: "Poppins", sans-serif;
     font-weight: 700;
     width: fit-content;
 }
 
 .text2 {
-    font-size: 5.14px;
+    font-size: 8px;
     color: #1400FF;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
     width: fit-content;
+    text-align: center;
+    margin: 0 auto;
     font-family: "Poppins", sans-serif;
 }
 
@@ -284,14 +286,24 @@ input:last-of-type {
     background-color: #fff;
     font-size: 20px;
     font-weight: 700;
-    cursor: pointer;
     box-sizing: content-box;
     transition: all .2s linear;
 }
 
-#save:hover {
+#save:not([disabled]):hover {
+    cursor: pointer;
     color: #fff;
     background-color: #0069ff;
+}
+
+#save:not([disabled]):active {
+    background-color: #055cd6;
+    border-color: #055cd6;
+}
+
+#save[disabled] {
+    border-color: rgba(80, 150, 255, .9);
+    color: rgba(80, 150, 255, .9);
 }
 
 .alert {
@@ -345,15 +357,73 @@ input:last-of-type {
     transform: rotate(-45deg) translate(-19%, -100%);
 }
 
+.alert__err {
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    width: 274px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.alert__err__check-mark {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+    transform: rotate(45deg);
+}
+
+.alert__err__check-mark::before, .alert__err__check-mark::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    transform-origin: center center;
+    height: 1.5px;
+    background-color: #ff0000;
+}
+
+.alert__err__check-mark::before {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.alert__err__check-mark::after {
+    transform: translate(-50%, -50%);
+}
+
 /* avatar */
 .avatar {
     width: 65px;
     height: 65px;
     border-radius: 50%;
-    background-color: gray;
     position: absolute;
     top: 25px;
     right: 35px;
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
 }
 
 /* logout button */

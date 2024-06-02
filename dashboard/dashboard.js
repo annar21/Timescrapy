@@ -1,5 +1,4 @@
-// [[date:int, weekday:int]]
-
+// todos - users quantity, create, 
 // Variables
 const months = [
     "January",
@@ -25,8 +24,7 @@ weekDays = [
     "Saturday"
 ]
 
-
-const options = document.getElementsByClassName("option"),
+const options = document.querySelector('.options'),
       durationSpan = document.getElementById("duration"),
       triangle = document.getElementById("triangle"),
       optionsContainer = document.getElementById("optionsContainer"),
@@ -44,15 +42,23 @@ const options = document.getElementsByClassName("option"),
       hubspotBtn = document.querySelector('.toHubspot'),
       calendlyBtn = document.querySelector('.toCalendly'),
       backgroundEffect = document.querySelector('.background-effect'),
-      formWrapper = document.querySelector('.form-wrapper')
+      formWrapper = document.querySelector('.form-wrapper'),
+      avatarBig = document.querySelector('.avatar-big'),
+      avatarSmall = document.querySelector('.avatar'),
+      profileName = document.querySelector('.username'),
+      timeList = document.querySelector('.time__list'),
+      guestsList = document.getElementById("list"),
+      alertText = document.querySelector('.alert__text'),
+      alert = document.querySelector('.alert'),
+      dotsContainer = document.querySelector('.three-dots__container'),
+      currentQuantitySpan = document.getElementById("currentQuantitySpan"),
+      maxQuantitySpan = document.getElementById("maxQuantitySpan")
       
 let addUserBtn = document.getElementById("add-btn-form"),
     calendlyInp = document.getElementById('c-url'),
     emailInp = document.getElementById('email'),
     hubspotInp = document.getElementById('h-url')
 
-
-  
 const weekdaysTemplate = `<div class="calendar__item weekday">mon</div>
                           <div class="calendar__item weekday">tue</div>
                           <div class="calendar__item weekday">wed</div>
@@ -61,32 +67,57 @@ const weekdaysTemplate = `<div class="calendar__item weekday">mon</div>
                           <div class="calendar__item weekday">sat</div>
                           <div class="calendar__item weekday">sun</div>`
 
-
-const calendlyForm = `<div class="search-form__container" id="formContainer">
+const calendlyForm = `<div class="search-form__container" id="formContainer" style="grid-template-rows: 60px 60px 45px;">
                         <div class="i"><input type="text" id="c-url" placeholder="Enter Calendly URL or Nickname"></div>
                         <div class="i"><input type="email" id="email" placeholder="Enter Email"></div>
                         <div class="i"><button id="add-btn-form" class="blue">Add</button></div>
                       </div>`,
-      hubspotForm = `<div class="search-form__container" id="formContainer">
+      hubspotForm = `<div class="search-form__container" id="formContainer" style="grid-template-rows: 60px 45px;">
                         <div class="i"><input type="text" id="h-url" placeholder="Enter Hubspot URL or Nickname"></div>
                         <div class="i h"><button id="add-btn-form" class="orange">Add</button></div>
                       </div>`
 
 let currentDate = new Date()
 
+let usersMaxQuantity, usersCurrentQuantity = 0
+let userPlan
+
 let offsetX, offsetY, isDragging = false
-// Here I should change the logic of time__item.onclick, but I will do it with fetch
-const timeItems = document.getElementsByClassName("time__item")
 
+const freeDays = new Map(),
+      users = {calendly: [], hubspot: []},
+      meetingsDurations = new Array()
 
+// users[service] -> [el] -> el = {email: slug}
+
+let selectedDurationIndex = 0   
+
+const monthsInfo = {}, // -> monthsInfo[months[new Date().getMonth()]].isLoaded -> true:false
+      t = new Date()
+for(let i = 1; i <= 3; i ++) {
+    monthsInfo[months[t.getMonth()]] = {
+        isLoaded: false
+    }
+    t.setMonth(new Date().getMonth() + i)
+}
 // Functions
-const guestTemplate = (name, imgUrl) => `<div class="guest"><div class="guest__avatar"><img src="${imgUrl}"></div><div class="guest__name">${name}</div></div>`
+const guestTemplate = (name, imgUrl, service, slug) => `<div class="guest" id="${guestId(service, slug)}"><div class="guest__avatar"><div class="remove-user">REMOVE</div><img src="${imgUrl}"></div><div class="guest__name">${name}</div></div>`,
+      avatarImage = imgUrl => `<img src="${imgUrl}" alt="profile picture">`,
+      timeItemTemplate = time => `<div class="time__item"><div class="time">${time}</div><div class="create-btn">Create</div></div>`
+
+const guestId = (service, slug) => `${service}-${toLowercaseArray(getUsers(service)).indexOf(slug.toLowerCase())}`
+
+const changeUsersCurrentQuantity = bool => {
+    if(bool) usersCurrentQuantity++
+    else usersCurrentQuantity--
+    currentQuantitySpan.innerText = usersCurrentQuantity
+}
 
 function initCalendar() {
-    // getDays()
-    //     .then(response => response.json())
-    //     .then(data => console.log(data))
-    //     .catch(err => console.log(err))
+    weekdaySpan.innerText = ''
+    monthSpan.innerText = ''
+    dateSpan.innerText = ''
+    timeList.innerHTML = ''
 
     let daysDivsTag = weekdaysTemplate,
         dayCounter = 1,
@@ -100,54 +131,76 @@ function initCalendar() {
         if(i < firstIndex || i > lastIndex - 1) {
             daysDivsTag += `<div class="calendar__item day"></div>`
         } else {
-            daysDivsTag += `<div class="calendar__item day filled${dayCounter === currentDate.getDate() ? " current" : ""}">${dayCounter}</div>`
+            daysDivsTag += `<div class="calendar__item day filled">${dayCounter}</div>`
             dayCounter++
         }
         i++
-    }
-    
+    }    
 
     monthYearSpan.innerText = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`
     calendarBody.innerHTML = daysDivsTag
 
-    dayDivs = document.getElementsByClassName("filled")
+    const dayDivs = document.getElementsByClassName("filled")
     // clicking on a day div
-    for(const dayDiv of dayDivs) {
-        dayDiv.addEventListener("click", event => {
-            for(const t of dayDivs) {
-                t.classList.remove("current")
+    for(const dayDiv of dayDivs) {  
+        dayDiv.addEventListener("click", () => {
+            if(dayDiv.classList.contains("current")) {
+                for(const t of dayDivs) {
+                    t.classList.remove("clicked")
+                }
+                dayDiv.classList.add("clicked")
+                currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), dayDiv.innerText)
+                let elementForTimeList = ''
+                freeDays.get(convertDateForServer(currentDate)).forEach(el => elementForTimeList += timeItemTemplate(getHoursFromIso(el)))
+                timeList.innerHTML = elementForTimeList
+                const timeItems = document.getElementsByClassName("time__item")
+                for(const timeItem of timeItems) {
+                    timeItem.addEventListener("click", () => {
+                        for(const t of timeItems) {
+                            t.classList.remove("toAdd")
+                        }
+                    timeItem.classList.add("toAdd")
+                    })
+                }
+                changeWeekdayDate()
             }
-            dayDiv.classList.add("current")
-            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), dayDiv.innerText)
-            changeWeekdayDate()
         })
     }
 
-    changeWeekdayDate()
+    const freeDaysKeysArray = Array.from(freeDays.keys())
+    for(const dayDiv of dayDivs) {
+        if(freeDaysKeysArray.includes(convertDateForServer(new Date(currentDate.getFullYear(), currentDate.getMonth(), parseInt(dayDiv.innerText))))) {
+            dayDiv.classList.add("current")
+        } 
+    }
 }
 
 function changeWeekdayDate() {
-    weekdaySpan.innerText = weekDays[currentDate.getDay()]
+    weekdaySpan.innerText = `${weekDays[currentDate.getDay()]}, `
     monthSpan.innerText = months[currentDate.getMonth()]
     dateSpan.innerText = `${currentDate.getDate()}`
 }
 
+const convertDateForServer = date => `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
+
 // https://timescrapy.com/load-calendar
-// const getDays = (calendly_urls=['aregakdev'], hubspot_urls=[], year=currentDate.getFullYear(), month=currentDate.getMonth()) => fetch('https://timescrapy.com/load-calendar', {
-//     body: JSON.stringify({
-//         'calendly_urls': calendly_urls,
-//         'hubspot_urls': hubspot_urls,
-//         'year': year,
-//         'month': month
-//         }),
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     method: 'POST'
-// })
+const loadCalendar = (startDate, endDate) => fetch('https://timescrapy.com/load-calendar', {
+    body: JSON.stringify({
+        'calendly_urls': getUsers('calendly'),
+        'hubspot_urls': getUsers('hubspot'),
+        'start_date': convertDateForServer(startDate),
+        'end_date': convertDateForServer(endDate),
+        'duration': meetingsDurations[selectedDurationIndex]
+        }),
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    method: 'POST'
+})
+
+const getUserInfo = () => fetch('https://timescrapy.com/get-user-info')
 
 function startDrag(e) {
-    // e.preventDefault()
     isDragging = true
     offsetX = e.clientX - formWrapper.getBoundingClientRect().left
     offsetY = e.clientY - formWrapper.getBoundingClientRect().top
@@ -157,78 +210,314 @@ function startDrag(e) {
 }
 
 function drag(e) {
-    // e.preventDefault()
     if(!isDragging) return
     formWrapper.style.left = e.clientX - offsetX + 'px'
     formWrapper.style.top = e.clientY - offsetY + 'px'
 }
 
 function stopDrag(e) {
-    // e.preventDefault()
     isDragging = false
     document.removeEventListener('mousemove', drag)
     document.removeEventListener('mouseup', stopDrag)
 }
 
+const toLowercaseArray = array => array.map(el => el.toLowerCase())
+
 function addUser(e) {
     e.preventDefault()
-    if(!calendlyBtn.classList.contains("off")) {
-        fetch('https://timescrapy.com/add-calendly-profile', {
-            method: 'POST',
-            body: JSON.stringify({
-                'calendly_url': calendlyInp.value,
-                'email': emailInp.value
-               })
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
+    if(usersCurrentQuantity !== usersMaxQuantity) {
+
+        if(!calendlyBtn.classList.contains("off")) {
+            if(!toLowercaseArray(getUsers("calendly")).includes(calendlyInp.value.toLowerCase())) {
+                fetch('https://timescrapy.com/add-calendly-profile', {
+                method: 'POST',
+                body: JSON.stringify({
+                    'calendly_url': calendlyInp.value,
+                    'email': emailInp.value 
+                   }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if(response.ok) return response.json()
+                    return response.json().then(err => {
+                        alertText.innerText = err.message
+                        alert.style.transition = 'all .3s ease'
+                        alert.style.top = '60px'
+                        alert.style.opacity = '1'
+                        alert.style.visibility = 'visible'
+                        showError()
+                    })
+                })
+                .then(data => {
+                    const obj = {}
+                    obj[data.email] = data.slug
+                    users.calendly.push(obj)
+                    guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, data.profile_pic, "calendly", data.slug))
+                    console.log(data)
+                    
+                    dotsContainer.classList.remove("hidden")
+                    loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(freeDays)
+                            clearFreeDays()
+                            console.log(freeDays)
+                            // console.log(data)
+                            addFreeDays(data)
+                            console.log(freeDays)
+                            dotsContainer.classList.add("hidden")
+                            initCalendar()
+                        })
+                        .catch(err => console.log(err))
+                    const el = document.getElementById(guestId("calendly", data.slug))
+                    changeUsersCurrentQuantity(true)
+                    el.querySelector('.remove-user').addEventListener("click", () => removeUser(el))
+                })
+            } else {
+                alertText.innerText = 'User Already Added'
+                alert.style.transition = 'all .3s ease'
+                alert.style.top = '60px'
+                alert.style.opacity = '1'
+                alert.style.visibility = 'visible'
+                showError()
+            }
+        } else {
+            if(!toLowercaseArray(getUsers("hubspot")).includes(calendlyInp.value.toLowerCase())) {
+                fetch('https://timescrapy.com/add-hubspot-profile', {
+                method: 'POST',
+                body: JSON.stringify({
+                    'hubspot_url': hubspotInp.value
+                }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if(response.ok) return response.json()
+                    return response.json().then(err => {
+                        alertText.innerText = err.message
+                        alert.style.transition = 'all .3s ease'
+                        alert.style.top = '60px'
+                        alert.style.opacity = '1'
+                        alert.style.visibility = 'visible'
+                        showError()
+                    })
+                })
+                .then(data => {
+                    console.log(data)
+                    const obj = {}
+                    obj[data.email] = data.username
+                    users.hubspot.push(obj)
+                    guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, '../imgs/hubspot_logo.png', "hubspot", data.username))
+    
+                    dotsContainer.classList.remove("hidden")
+                    loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(freeDays)
+                            clearFreeDays()
+                            console.log(freeDays)
+                            // console.log(data)
+                            addFreeDays(data)
+                            console.log(freeDays)
+                            dotsContainer.classList.add("hidden")
+                            initCalendar()
+                        })
+                        .catch(err => console.log(err))
+                    const el = document.getElementById(guestId("hubspot", data.username))
+                    changeUsersCurrentQuantity(true)
+                    el.querySelector('.remove-user').addEventListener("click", () => removeUser(el))
+                })
+            } else {
+                alertText.innerText = 'User Already Added'
+                alert.style.transition = 'all .3s ease'
+                alert.style.top = '60px'
+                alert.style.opacity = '1'
+                alert.style.visibility = 'visible'
+                showError()
+            }
+        } 
+    } else {
+        if(userPlan === 'basic') alertText.innerText = 'Premium Subscription Required'
+        else alertText.innerText = 'Maximum User Limit Reached'
+
+        alert.style.transition = 'all .3s ease'
+        alert.style.top = '60px'
+        alert.style.opacity = '1'
+        alert.style.visibility = 'visible'
+        showError()
+    }
+} // /addUser
+
+function clearFreeDays() {
+    freeDays.clear()
+    for(const key in monthsInfo) {
+        if(Object.hasOwnProperty.call(monthsInfo, key)) {
+            monthsInfo[key].isLoaded = false   
+        }
     }
 }
 
+// `${service}-${toLowercaseArray(getUsers(service)).indexOf(slug.toLowerCase())}`
+function removeUser(userHTMLElement) {
+    const id = userHTMLElement.id,
+          service = id.split('-')[0],
+          index = id.split('-')[1]
+    
+    if(service == "calendly") users.calendly = users.calendly.filter(el => el != users.calendly[index])
+    else users.hubspot = users.hubspot.filter(el => el != users.hubspot[index]) 
+    userHTMLElement.remove()
+
+    changeUsersCurrentQuantity(false)
+
+    dotsContainer.classList.remove("hidden")
+    loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
+        .then(response => response.json()) 
+        .then(data => {
+            addFreeDays(data)
+            initCalendar()
+            dotsContainer.classList.add("hidden")
+        })
+}
+
+const getUsers = service => users[service].map(el => Object.values(el)[0])
+
+const getDateFromIso = isoString => isoString.split("T")[0]
+const getHoursFromIso = isoString => isoString.split('T')[1].split(':')[0] + ':' + isoString.split('T')[1].split(':')[1]
+
+function addFreeDays(data) {
+    data.forEach(isoString => {
+        const date = getDateFromIso(isoString)
+        if(freeDays.has(date)) {
+            freeDays.get(date).push(isoString)
+        } else {
+            freeDays.set(date, [isoString])
+        }
+    })
+
+    monthsInfo[months[currentDate.getMonth()]].isLoaded = true
+}
+
+const showError = () => new Promise(resolve => {
+    setTimeout(() => {
+        alertText.style.transition = 'all .5s linear'
+        alert.style.top = '0'
+        alert.style.opacity = '0'
+        alert.style.visibility = 'hidden'
+        resolve()
+    }, 3500)
+})
+
+function loadCalendarForButtons() {
+    if(!monthsInfo[months[currentDate.getMonth()]].isLoaded) {
+        dotsContainer.classList.remove("hidden")
+        loadCalendar(currentDate, new Date(currentDate.getFullYear(), parseInt(currentDate.getMonth()) + 1, 0))
+            .then(response => response.json())
+            .then(data => {
+                addFreeDays(data)
+                initCalendar()
+                dotsContainer.classList.add("hidden")
+            })
+            .catch(err => console.log(err))
+    }
+}
 // Main
 initCalendar()
+getUserInfo()
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        const obj = {}
+        obj[data.email] = data.username
+        users.calendly.push(obj)
+        userPlan = data.plan.toLowerCase()
+        usersMaxQuantity = userPlan === 'basic' ? 2:10
+        currentQuantitySpan.innerText = 0
+        maxQuantitySpan.innerText = usersMaxQuantity
 
-// editing meeting time
-for(const option of options) {
-    option.addEventListener("click", event => {
-        for(const o of options) {
-            if(o.classList.contains("active")) {
-                o.classList.remove("active")
-            }
+        avatarBig.innerHTML = avatarImage(data.profile_pic)
+        avatarSmall.innerHTML = avatarImage(data.profile_pic)
+        profileName.innerText = data.username
+        meetingsDurations.push(...data.durations)
+        for(let i = 0; i < data.durations.length; i++) {
+            options.innerHTML += `<div class="option${i === 0 ? ' active':''}">${data.durations[i]} min</div>`
         }
-        option.classList.add("active")
-        let t = option.innerText
-        durationSpan.innerText = t.slice(0, 2)
-    })
-}   
+        durationSpan.innerText = data.meeting_names[0]
+        const OptionsCollection = document.getElementsByClassName('option')
+        for(let i = 0; i < OptionsCollection.length; i++) {
+            OptionsCollection[i].addEventListener("click", () => {
+                for(const t of OptionsCollection) {
+                    if(t.classList.contains('active')) {
+                        t.classList.remove('active')
+                    }
+                }
+            OptionsCollection[i].classList.add('active')
+            durationSpan.innerText = data.meeting_names[i]
+            selectedDurationIndex = i
+            
+            clearFreeDays()
+            dotsContainer.classList.remove("hidden")
+            loadCalendar(currentDate, new Date(currentDate.getFullYear(), parseInt(currentDate.getMonth()) + 1, 0))
+                .then(response => response.json())
+                .then(d => {
+                    addFreeDays(d)
+                    dotsContainer.classList.add("hidden")
+                    initCalendar()
+                })
+                .catch(err => console.log(err))
+            })
+        }
+        loadCalendar(new Date(), new Date(new Date().getFullYear(), parseInt(new Date().getMonth()) + 1, 0))
+            .then(response => response.json())
+            .then(d => {
+                addFreeDays(d)
+                dotsContainer.classList.add("hidden")
+                initCalendar()
+            })
+            .catch(err => console.log(err))
+        }) // /getUserInfo().then().then()
+    .catch(err => console.log(err))
 
-triangle.addEventListener("click", event => {
+
+triangle.addEventListener("click", () => {
     optionsContainer.classList.toggle("closed")
     optionsContainer.classList.toggle("opened")
 })
 
 // changing months in the calendar
-nextBtn.addEventListener("click", event => {
-    currentDate = currentDate.getMonth() === 11 ? new Date(currentDate.getFullYear() + 1, 0) : new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
-    initCalendar()
-})
+nextBtn.addEventListener("click", () => {
+    if(currentDate.getMonth() !== new Date().getMonth() + 2) {
+        currentDate = currentDate.getMonth() === 11 ? new Date(currentDate.getFullYear() + 1, 0) : new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
+        // logic for loading calendar 
+        if(!dotsContainer.classList.contains("hidden")) dotsContainer.classList.add("hidden")
+        loadCalendarForButtons()
+        initCalendar()
 
-
-previousBtn.addEventListener("click", event => {
-    currentDate = currentDate.getMonth() === 0 ? new Date(currentDate.getFullYear() - 1, 11) : new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
-    initCalendar()
-})
-
-// timeItem.onclick
-for(const timeItem of timeItems) {
-    timeItem.addEventListener("click", event => {
-        for(const t of timeItems) {
-            t.classList.remove("toAdd")
+        if(currentDate.getMonth() === new Date().getMonth() + 1) {
+            previousBtn.classList.remove("disabled")
+        } else if(currentDate.getMonth() === new Date().getMonth() + 2) {
+            nextBtn.classList.add("disabled")
         }
-    timeItem.classList.add("toAdd")
-    })
-}
+    }   
+})
+
+
+previousBtn.addEventListener("click", () => {
+    if(currentDate.getMonth() !== new Date().getMonth()) {
+        currentDate = currentDate.getMonth() === 0 ? new Date(currentDate.getFullYear() - 1, 11) : new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
+        if(!dotsContainer.classList.contains("hidden")) dotsContainer.classList.add("hidden")
+        loadCalendarForButtons()
+        initCalendar()
+
+        if(currentDate.getMonth() === new Date().getMonth() + 1) {
+            nextBtn.classList.remove("disabled")
+        } else if(currentDate.getMonth() === new Date().getMonth()) {
+            previousBtn.classList.add("disabled")
+        }
+    } 
+})
 
 // add guests, change service(calendly, hubspot), drag form
 addGuestsBtn.addEventListener("click", event => {
@@ -252,6 +541,7 @@ calendlyBtn.addEventListener("click", event => {
         form.innerHTML = calendlyForm
         addUserBtn = document.getElementById("add-btn-form")
         calendlyInp = document.getElementById('c-url')
+        emailInp = document.getElementById('email')
         addUserBtn.addEventListener("click", addUser)
     }
 })

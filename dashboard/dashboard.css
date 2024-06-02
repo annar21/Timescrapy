@@ -8,9 +8,71 @@
     box-sizing: border-box;
 }
 
+
+
 button:focus {
     outline: none;
 }
+
+/* alert */
+.alert {
+    background-color: #ff0000;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    width: 274px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.alert__mark {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #fff;
+    transform: rotate(45deg);
+    margin-left: -20px;
+}
+
+.alert__mark::before, .alert__mark::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 2.5px;
+    background-color: #ff0000;
+}
+
+.alert__mark::before {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.alert__mark::after {
+    transform: translate(-50%, -50%);
+}
+
+.alert__text {
+    color: #fff;
+    font-size: 13px;
+    background-color: transparent;
+}
+
 
 /*  */
 
@@ -225,16 +287,41 @@ button:focus {
     justify-content: center;
 }
 
-.settings-icon, .avatar {
+.avatar {
     width: 65px;
     height: 65px;
     border-radius: 50%;
-    background-color: #999;
-    border: 1px solid rgb(54, 54, 54);
+    overflow: hidden;
+}
+
+.avatar {
+    position: relative;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .settings-icon {
     margin-right: 25px;
+    color: #999;
+    cursor: pointer;
+}
+
+.settings-icon i {
+    font-size: 50px;
+    margin: auto 0;
+    transition: all .2s linear;
+}
+
+.settings-icon i:hover {
+    color: #727272;
 }
 
 /* Main */
@@ -267,13 +354,21 @@ button:focus {
     width: 92.3px;
     height: 92.3px;
     border-radius: 50%;
-    background-color: #999;
+    overflow: hidden;
 }
+
+.avatar-big img {
+    width: 92.3px;
+    height: 92.3px;
+    border-radius: 50%;
+}
+
 .username {
     color: #737373;
     font-size: 20px;
     font-weight: 700;
-    margin-top: 10px;
+    margin: 16px 0 13px;
+    padding-left: 3px;
 }
 
 .personal-data {
@@ -290,7 +385,7 @@ button:focus {
     color: #0B3558;
     display: flex;
     justify-content: space-between;
-    max-width: 490px;
+    width: fit-content;
 }
 
 .triangle-down {
@@ -306,7 +401,7 @@ button:focus {
 .options-wrapper {
     padding-top: 19px;
     position: relative;
-    margin-left: 15px   ;
+    margin-left: -20%;
 }
 
 .options-wrapper.opened {
@@ -392,7 +487,6 @@ button:focus {
     border-right: rgba(0, 0, 0, .05) solid 3px;
     flex-basis: 75%;
     position: relative;
-    /* z-index: 1000; */
 }
 
 .add-button {
@@ -415,52 +509,99 @@ button:focus {
     cursor: pointer;
 }
 
+.users-quantity {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    color: #737373;
+    font-size: 24px;
+    font-family: "Calibri", sans-serif;
+    font-weight: 700;
+}
+
 #list {
     position: absolute;
     top: 120px;
-    left: 35px  ;
+    left: 35px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    overflow-y:auto;
+    max-height: 200px;
 }
 
 .guest {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100px;
-    width: 70px;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    gap: 5px;
 }
 
 .guest__avatar {
     width: 70px;
     height: 70px;
+    border-radius: 12px;
     overflow: hidden;
-    background-color: gray;
+    position: relative;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
 .guest__avatar img {
     width: 70px;
 }
 
-.guest__name {
+.guest__name {  
     color: #1B4263;
     font-size: 20px;
     font-weight: 700;
     font-family: "Calibri";
     text-align: center;
+    max-width: 110px;
+    word-wrap: break-word;
+}
+
+.remove-user {
+    font-size: 12px;
+    font-family: "Poppins", sans-serif;
+    color: #0069ff;
+    background: #fff;
+    width: 100%;
+    height: 100%; 
+    line-height: 66px; 
+    border-radius: 12px; 
+    font-weight: 500;
+    position: absolute;
+    z-index: 1000;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .2s linear;
+}
+
+.guest__avatar:hover .remove-user {
+    opacity: 1;
+    visibility: visible;
+    border: 3px solid #0069ff;
 }
 
 .form-wrapper {
-    padding: 33px 30px;
+    padding: 18px 30px 30px;
     border-radius: 27px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 50px -14px rgba(0, 0, 0, .25);
     max-height: 315px;
     position: absolute;
+    z-index: 5000;
 }
 
 .form-header {
     display: flex;
     width: 470px;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     cursor: move;
 }
 
@@ -550,11 +691,11 @@ button:focus {
     z-index: 1;
     left: 4px;
     transition: all .2s linear;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, .2);
 }
 
 .search-form__container {
     display: grid;
-    grid-template-rows: 60px 60px 45px;
     grid-row-gap: 18px;  
 }
 
@@ -576,7 +717,7 @@ button:focus {
 .search-form input {
     width: 469px;
     height: 60px;
-    border: #91ABBE 2px solid;
+    border: rgba(145, 171, 190, 0.5) 2px solid;
     border-radius: 17px;
     padding-left: 18px;
 }
@@ -590,13 +731,23 @@ button:focus {
 #add-btn-form {
     width: 115px;
     height: 43px;
-    border: #91ABBE 2px solid;
+    border: rgba(145, 171, 190, 0.5) 2px solid;
     border-radius: 17px;
     font-weight: 700;
     font-size: 20px;
     font-family: "Calibri", sans-serif;
     cursor: pointer;
     transition: all .2s linear;
+}
+
+#add-btn-form:hover {
+    color: #fff;
+    background-color: #91ABBE;
+}
+
+#add-btn-form:active {
+    background-color: #6a7882;
+    border-color: #6a7882;
 }
 
 .blue {
@@ -618,12 +769,6 @@ button:focus {
 .orange {
     color: #FF8A00;
 }
-
-#add-btn-form:hover {
-    color: #fff;
-    background-color: #91ABBE;
-}
-
 /* .item2 */
 .item2 {
     padding:  0 55px;
@@ -643,86 +788,125 @@ button:focus {
 
 .calendar {
     padding-top: 45px;
-    width: 55%;
     display: flex;
     flex-direction: column;
     align-items: center;
 } 
 
-.calendar__header span {
-    color: #0B3558;
+.calendar__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
 }
 
-.slide-btn {
-    font-size: 25px;
-    position: relative;
-    z-index: 2;
-    background-color: transparent;
-    transition: all .1s linear;
-    cursor: pointer;
+.slide-btn.disabled {
+    visibility: hidden;
+    opacity: 0;
 }
 
-.slide-btn::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.slide-btn:not(.disabled) {
+    visibility: visible;
+    opacity: 1;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    z-index: -1;
     transition: all .1s linear;
-}
-
-.slide-btn:hover {
-    color: #3660F6;
-}
-
-.slide-btn:hover::before {
     background-color: #EEF5FF;
+    cursor: pointer;
+}
+
+.slide-btn:not(.disabled):hover {
+    background-color: #D9E9FF;
+}
+
+.slide-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide-btn div {
+    border-left: 2.5px #0069ff solid;
+    border-top: 2.5px #0069ff solid;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    transform: rotate(135deg);
+    border-top-left-radius: 1px;
+    position: relative;
+    left: -1.55px;
+}
+
+#previous div {
+    transform: rotate(-45deg);
+    position: relative;
+    left: 1.55px;
 }
 
 #month-year {
     font-size: 24px;
     font-family: "Isotok Web", sans-serif;
-    padding: 0 17px;
+    padding: 0 32px;
 }
 
 .calendar__body {
     font-family: "Inter", sans-serif;
-    width: 450px;
     height: 360px;
     display: grid;
     grid-template-rows: repeat(7, 1fr);
     grid-template-columns: repeat(7, 1fr);
-    grid-column-gap: 36px;
-    grid-row-gap: 32px;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
     margin-top: 25px;
+}
+
+.wrapper-calendar__body {
+    position: relative;
 }
 
 .weekday {
     text-transform: uppercase;
     color: #0B3558;
-    font-size: 20px;
+    font-size: 12px;
+    line-height: 44px;
 }
 
 .day {
-    font-size: 24px;
+    font-size: 16px;
     color: #868686;
     position: relative;
     z-index: 1;
+    text-align: center;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
     transition: all .1s linear;
 }
 
-.filled {
+.current {
     cursor: pointer;
+}
+
+
+.current.clicked {
+    color: #fff;
+    font-weight: 700;
+}
+
+.current.clicked::before {
+    background-color: #0069FF;
+}
+
+.current:not(.clicked):hover::before {
+    background-color: #D9E9FF;
 }
 
 .day::before {
     content: "";
-    width: 55px;
-    height: 55px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -732,14 +916,9 @@ button:focus {
     transition: all .1s linear;
 }
 
-/* .day.filled:hover {
-    color: #3660F6;
-    font-weight: 600;
-} */
-
-/* .day.filled:hover::before {
-    background-color: #EEF5FF;
-} */
+.day:not(.current) {
+    cursor: auto;
+}
 
 .current {
     color: #3660F6;
@@ -754,8 +933,53 @@ button:focus {
     text-align: center;    
 }
 
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.three-dots__container {
+    position: absolute;
+    z-index: 2;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #737373;
+}
+
+.dot1 {
+    animation: scaleDot .5s linear 0s infinite alternate;
+    
+}
+
+.dot2 {
+    animation: scaleDot .5s linear .25s infinite alternate;
+}
+
+.dot3 {
+    animation: scaleDot .5s linear .5s infinite alternate;
+}
+
+@keyframes scaleDot {
+    to {
+        transform: scale(1.55); /* 11->17 = 1.55 */
+    }
+}
+
 .Time {
     margin-left: 115px;
+    margin-top: 23px;
 }
 
 .Weekday-Date {
@@ -763,11 +987,16 @@ button:focus {
     font-family: Arial, "Istok Web", sans-serif;
     color: #0B3558;
     width: 240px;
-    margin-bottom: 24px;
+    margin-top: -14px;
+    margin-bottom: 37px;
 }
 
 .time__list {
     margin-top: 10px;
+    max-height: 50vh;
+    padding: 0 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .time__item {
@@ -782,7 +1011,7 @@ button:focus {
 .time, .create-btn {
     height: 70px;
     text-align: center;
-    line-height: 65px;
+    line-height: 70px;
     cursor: pointer;
     transition: all .2s linear;
 }
@@ -790,16 +1019,16 @@ button:focus {
 .time__item:not(.toAdd) .time {
     width: 100%;
     color: #0069FF;
-    border: #0069FF 3px solid;
+    border: #0069FF 1px solid;
     font-size: 28px;
     font-weight: 700;
     font-family: "Calibri", sans-serif;
     border-radius: 8px;
+    transition: all .1s linear;
 }
 
 .time__item:not(.toAdd) .time:hover {
-    background-color: #0069FF;
-    color: #fff;
+    border: #0069FF 2.5px solid;
 }
 
 .time__item.toAdd .create-btn:hover {
@@ -844,25 +1073,19 @@ button:focus {
     }
 
     .calendar__body {
-        grid-row-gap: calc(32px * .8);
-        grid-column-gap: calc(36px * .8);
+        grid-row-gap: calc(8px * .8);
+        grid-column-gap: calc(8px * .8);
     }
 
-    .weekday {
-        font-size: calc(20px * .8);
-    }
-
-    .day::before {
-        width: calc(55px * .8);
-        height: calc(55px * .8);
-        top: calc(50% * .8);
+    .day {
+        font-size: 16px;
     }
 
     .slide-btn {
         font-size: calc(25px * .8);
     }
 
-    #month-year, .Weekday-Date, .day {
+    #month-year, .Weekday-Date {
         font-size: calc(24px * .8);
     }
 
@@ -876,8 +1099,13 @@ button:focus {
 
     .time__item {
         width: calc(288px * .8);
+        margin-bottom: 0;
+        line-height: calc(70px * .8);  
+    }
+
+    .time, .create-btn {
+        line-height: calc(70px * .8);
         height: calc(70px * .8);
-        margin-bottom: 25px;
     }
 
     .Time {
@@ -889,67 +1117,3 @@ button:focus {
         width: 32.8vw;
     }
 }
-
-/* @media (max-width: 1640px) {
-    .calendar__body {
-        grid-row-gap: calc(32px * .8);
-        grid-column-gap: calc(36px * .8);
-    }
-
-    .weekday {
-        font-size: calc(20px * .8);
-    }
-
-    .day::before {
-        width: calc(55px * .8);
-        height: calc(55px * .8);
-    }
-
-    .slide-btn {
-        font-size: calc(25px * .8);
-    }
-
-    #month-year, .Weekday-Date, .day, .time__item {
-        font-size: calc(24px * .8);
-    }
-
-    .item2__header {
-        font-size: calc(30px * .8);
-    } 
-
-    .time__item {
-        width: calc(288px * .8);
-        height: calc(70px * .8);
-    }
-
-    .Time {
-        margin-left: calc(115px * .8);
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- */

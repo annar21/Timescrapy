@@ -57,6 +57,11 @@
                     <div class="alert__text">Your settings have been saved!</div>
                 </div>
 
+                <div class="alert__err">
+                    <div class="alert__err__check-mark"></div>
+                    <div class="alert__err-text"></div>
+                </div>
+
                 <div class="form">
 
                     <form>
@@ -75,18 +80,17 @@
                         <div class="label">Calendly URL</div>
                         <input type="text" id="calendlyUrlInp">
 
-                        <div class="label f"><span class="label1">Time Zone</span> <span class="label2">Current Time: 15:36</span></div>
-                        <input type="text" id="timezoneInp">
+                        <div class="label f"><span class="label1">Time Zone</span> <span class="label2">Current Time: <span id="currentTimeSpan"></span></span></div>
+                        <input type="text" autocomplete="off" id="timezoneInp">
 
-                        <br><button id="save">Save</button>
+                        <br><button id="save" disabled>Save</button>
                     </form>
-
                 </div> <!-- /.form -->
 
                 <div class="avatar"></div>
 
                 <div class="logout">
-                    <button class="logout__btn">Sign Out</button>
+                    <button class="logout__btn" id="signout">Sign Out</button>
                 </div>
 
             </div> <!-- /.main -->

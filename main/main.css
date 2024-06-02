@@ -672,6 +672,10 @@ button {
     .footer_2__list__header {
         max-width: 225px;
     }
+
+    .footer__item {
+        padding-left: 40px;
+    }
 }
 /* height */
 @media (max-height: 850px) {

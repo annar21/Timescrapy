@@ -474,11 +474,6 @@ button:focus {
 }
 
 @media (max-height: 870px) {
-    .form-div {
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
     .img {
         height: 110vh;
         bottom: -140px;

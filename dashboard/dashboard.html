@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=1920px">
 
     <link rel="stylesheet" href="dashboard.css">
 
@@ -21,6 +21,10 @@
     <title>TimeScrapy || Dashboard</title>
 </head>
 <body>
+    <div class="alert">
+        <div class="alert__mark"></div>
+        <div class="alert__text"></div>
+    </div>
 
     <div class="f">
         <div class="form-wrapper">
@@ -35,7 +39,7 @@
                 <div class="close"></div>
             </div> <!-- /.form-heaader -->
             <form class="search-form">
-                <div class="search-form__container" id="formContainer">
+                <div class="search-form__container" id="formContainer" style="grid-template-rows: 60px 60px 45px;">
                     <div class="i"><input type="text" id="c-url" placeholder="Enter Calendly URL or Nickname"></div>
                     <div class="i"><input type="email" id="email" placeholder="Enter Email"></div>
                     <div class="i"><button id="add-btn-form" class="blue">Add</button></div>
@@ -80,7 +84,7 @@
 
         <div class="header">
             <div class="icons">
-                <div class="settings-icon"></div>
+                <div class="settings-icon"><i class="fa-solid fa-gear"></i></div>
                 <div class="avatar"></div>
             </div>
         </div> <!-- /.header -->
@@ -91,25 +95,20 @@
                 <div class="personal-data">
 
                     <div class="avatar-big"></div>
-                    <div class="username">Leonardo Di Caprio</div>
+                    <div class="username"></div>
                     
                     <div class="meeting__duration">
 
                         <div class="duration__text">
                             <p class="text">
-                                <span id="duration">30</span> Minute Meeting
+                                <span id="duration"></span>
                             </p>
                         </div>
 
                         <div class="options-wrapper closed" id="optionsContainer">
                             <div class="triangle-down" id="triangle"></div>
     
-                            <div class="options">
-                                <div class="option option1">15 min</div>
-                                <div class="option option2 active">30 min</div>
-                                <div class="option option3">45 min</div>
-                                <div class="option option4">60 min</div>
-                            </div>
+                            <div class="options"></div>
                             
                         </div> <!-- /.options-wrapper -->
                     </div> <!-- /.meeting__duration -->
@@ -120,6 +119,7 @@
                     <div class="add-button">
                         <button id="add-btn">Add guests</button>
                     </div>
+                    <div class="users-quantity"><span id="currentQuantitySpan"></span> / <span id="maxQuantitySpan"></span></div>
 
                     <div id="list">
                         
@@ -135,26 +135,33 @@
                 </h2>
                 <div class="calendar" id="calendar">
 
-                    <div class="calendar__header">
-                        <span id="previous" class="slide-btn"><</span><span id="month-year"></span><span id="next" class="slide-btn">></span>
-                    </div>
+                    
 
                     <div class="calendar__wrapper">
-
-                        <div class="calendar__body">
-                            
-
-                            <!-- .calendar__item .day .filled .current -->
+                        <div>
+                            <div class="calendar__header">
+                                <div id="previous" class="slide-btn disabled"><div></div></div><div id="month-year"></div><div id="next" class="slide-btn"><div></div></div>
+                            </div>
+                            <div class="wrapper-calendar__body">
+                                <div class="three-dots__container">
+                                    <div class="dot dot1"></div>
+                                    <div class="dot dot2"></div>
+                                    <div class="dot dot3"></div>
+                                </div>
+                                <div class="calendar__body">
+                                    <!-- .calendar__item .day .filled .current -->
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="Time">
-                            <div class="Weekday-Date"><span id="Weekday"></span>, <span id="Month"></span> <span id="Date"></span></div>
+                            <div class="Weekday-Date"><span id="Weekday"></span><span id="Month"></span> <span id="Date"></span></div>
         
                             <div class="time__list">
-                                <div class="time__item toAdd"><div class="time">9:00</div><div class="create-btn">Create</div></div>
+                                <!-- <div class="time__item toAdd"><div class="time">9:00</div><div class="create-btn">Create</div></div>
                                 <div class="time__item"><div class="time">9:30</div><div class="create-btn">Create</div></div>
                                 <div class="time__item"><div class="time">10:00</div><div class="create-btn">Create</div></div>
-                                <div class="time__item"><div class="time">10:30</div><div class="create-btn">Create</div></div>
+                                <div class="time__item"><div class="time">10:30</div><div class="create-btn">Create</div></div> -->
                             </div>
                         </div> <!-- /.time -->
     

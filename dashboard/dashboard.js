@@ -52,7 +52,12 @@ const options = document.querySelector('.options'),
       alert = document.querySelector('.alert'),
       dotsContainer = document.querySelector('.three-dots__container'),
       currentQuantitySpan = document.getElementById("currentQuantitySpan"),
-      maxQuantitySpan = document.getElementById("maxQuantitySpan")
+      maxQuantitySpan = document.getElementById("maxQuantitySpan"),
+      donateBtn = document.querySelector('.btn'),
+      blackBG = document.getElementById("blackBG"),
+      alertSuccess = document.querySelector('.alertS'),
+      alertSuccessText = document.querySelector('.alertS__text')
+      
       
 let addUserBtn = document.getElementById("add-btn-form"),
     calendlyInp = document.getElementById('c-url'),
@@ -67,12 +72,12 @@ const weekdaysTemplate = `<div class="calendar__item weekday">mon</div>
                           <div class="calendar__item weekday">sat</div>
                           <div class="calendar__item weekday">sun</div>`
 
-const calendlyForm = `<div class="search-form__container" id="formContainer" style="grid-template-rows: 60px 60px 45px;">
+const calendlyForm = `<div class="search-form__container form__for__calendly" id="formContainer">
                         <div class="i"><input type="text" id="c-url" placeholder="Enter Calendly URL or Nickname"></div>
                         <div class="i"><input type="email" id="email" placeholder="Enter Email"></div>
                         <div class="i"><button id="add-btn-form" class="blue">Add</button></div>
                       </div>`,
-      hubspotForm = `<div class="search-form__container" id="formContainer" style="grid-template-rows: 60px 45px;">
+      hubspotForm = `<div class="search-form__container form__for__hubspot" id="formContainer">
                         <div class="i"><input type="text" id="h-url" placeholder="Enter Hubspot URL or Nickname"></div>
                         <div class="i h"><button id="add-btn-form" class="orange">Add</button></div>
                       </div>`
@@ -100,6 +105,8 @@ for(let i = 1; i <= 3; i ++) {
     }
     t.setMonth(new Date().getMonth() + i)
 }
+
+const names = new Array()
 // Functions
 const guestTemplate = (name, imgUrl, service, slug) => `<div class="guest" id="${guestId(service, slug)}"><div class="guest__avatar"><div class="remove-user">REMOVE</div><img src="${imgUrl}"></div><div class="guest__name">${name}</div></div>`,
       avatarImage = imgUrl => `<img src="${imgUrl}" alt="profile picture">`,
@@ -111,6 +118,23 @@ const changeUsersCurrentQuantity = bool => {
     if(bool) usersCurrentQuantity++
     else usersCurrentQuantity--
     currentQuantitySpan.innerText = usersCurrentQuantity
+}
+
+const showAlert = alert => {
+    alert.style.transition = 'all .3s ease'
+    alert.style.top = '60px'
+    alert.style.opacity = '1'
+    alert.style.visibility = 'visible'
+
+    return new Promise(resolve => {
+        setTimeout(() => {
+            alert.style.transition = 'all .5s linear'
+            alert.style.top = '0'
+            alert.style.opacity = '0'
+            alert.style.visibility = 'hidden'
+            resolve()
+        }, 1000)
+    })
 }
 
 function initCalendar() {
@@ -162,6 +186,36 @@ function initCalendar() {
                     timeItem.classList.add("toAdd")
                     })
                 }
+                const createButons = document.getElementsByClassName("create-btn")
+                Array.from(createButons).forEach(el => el.addEventListener("click", event => {
+                    event.preventDefault()
+                    const payload = new Object()
+                    payload.names = names
+                    payload.guests = []
+                    users.calendly.forEach(el => payload.guests.push(...Object.keys(el)))
+                    users.hubspot.forEach(el => payload.guests.push(...Object.keys(el)))
+                    console.log(payload.guests)
+                    payload.duration = meetingsDurations[selectedDurationIndex]
+                    const time = el.parentElement.querySelector('.time').innerText
+                    const hours = time.split(":")[0]
+                    const minutes = time.split(":")[1]
+                    payload.event_start_date = new Date(currentDate.getFullYear(),currentDate.getMonth() ,currentDate.getDate(), hours, minutes).toISOString()
+                    blackBG.classList.remove("hide")
+                    schedule(payload)
+                        .then(response => response.json())
+                        .then(data => {
+                            blackBG.classList.add("hide")
+                            console.log(data)
+                            if(data.success) {
+                                alertSuccessText.innerText = data.message
+                                showAlert(alertSuccess)
+                            } else {
+                                alertText.innerText = data.message
+                                showAlert(alert)
+                            }
+                        })
+                        .catch(err => console.log(err))
+                }))
                 changeWeekdayDate()
             }
         })
@@ -254,6 +308,7 @@ function addUser(e) {
                     const obj = {}
                     obj[data.email] = data.slug
                     users.calendly.push(obj)
+                    names.push(data.username)
                     guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, data.profile_pic, "calendly", data.slug))
                     console.log(data)
                     
@@ -308,9 +363,10 @@ function addUser(e) {
                 .then(data => {
                     console.log(data)
                     const obj = {}
-                    obj[data.email] = data.username
+                    obj[data.email] = data.slug
                     users.hubspot.push(obj)
-                    guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, '../imgs/hubspot_logo.png', "hubspot", data.username))
+                    names.push(data.username)
+                    guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, '../imgs/hubspot_logo.png', "hubspot", data.slug))
     
                     dotsContainer.classList.remove("hidden")
                     loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
@@ -326,7 +382,7 @@ function addUser(e) {
                             initCalendar()
                         })
                         .catch(err => console.log(err))
-                    const el = document.getElementById(guestId("hubspot", data.username))
+                    const el = document.getElementById(guestId("hubspot", data.slug))
                     changeUsersCurrentQuantity(true)
                     el.querySelector('.remove-user').addEventListener("click", () => removeUser(el))
                 })
@@ -423,6 +479,14 @@ function loadCalendarForButtons() {
             .catch(err => console.log(err))
     }
 }
+
+const schedule = payload => fetch('https://timescrapy.com/schedule', {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+})
 // Main
 initCalendar()
 getUserInfo()
@@ -551,7 +615,8 @@ hubspotBtn.addEventListener("click", event => {
     if(hubspotBtn.classList.contains('off')) {
         hubspotBtn.classList.remove('off')
         calendlyBtn.classList.add('off')
-        backgroundEffect.style.left = '99px'
+        if(window.innerWidth > 1700) backgroundEffect.style.left = '99px'
+        else backgroundEffect.style.left = '85px'
         form.innerHTML = hubspotForm
         addUserBtn = document.getElementById("add-btn-form")
         hubspotInp = document.getElementById('h-url')
@@ -561,6 +626,10 @@ hubspotBtn.addEventListener("click", event => {
 
 formWrapper.addEventListener("mousedown", startDrag)
 
-
 // add user
 addUserBtn.addEventListener("click", addUser)
+
+donateBtn.addEventListener("click", event => {
+    event.preventDefault()
+    fetch('https://timescrapy.com/donate')
+})

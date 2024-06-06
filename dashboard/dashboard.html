@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1920px">
 
     <link rel="stylesheet" href="dashboard.css">
 
@@ -21,9 +20,21 @@
     <title>TimeScrapy || Dashboard</title>
 </head>
 <body>
+    <div id="blackBG" class="hide">
+        <div class="three-dots__container1">
+            <div class="DOT DOT1"></div>
+            <div class="DOT DOT2"></div>
+            <div class="DOT DOT3"></div>
+        </div>
+    </div>
+
     <div class="alert">
-        <div class="alert__mark"></div>
         <div class="alert__text"></div>
+    </div>
+
+    <div class="alertS">
+        <div class="alertS__check-mark"></div>
+        <div class="alertS__text"></div>
     </div>
 
     <div class="f">
@@ -39,7 +50,7 @@
                 <div class="close"></div>
             </div> <!-- /.form-heaader -->
             <form class="search-form">
-                <div class="search-form__container" id="formContainer" style="grid-template-rows: 60px 60px 45px;">
+                <div class="search-form__container form__for__calendly" id="formContainer">
                     <div class="i"><input type="text" id="c-url" placeholder="Enter Calendly URL or Nickname"></div>
                     <div class="i"><input type="email" id="email" placeholder="Enter Email"></div>
                     <div class="i"><button id="add-btn-form" class="blue">Add</button></div>

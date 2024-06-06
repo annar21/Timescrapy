@@ -5,8 +5,7 @@ const btn = document.getElementById("btn"),
       errDivPass = document.querySelector('.p'),
       errDivEmail = document.querySelector('.e'),
       alertText = document.querySelector('.alert__text'),
-      alert = document.querySelector('.alert'),
-      g = document.querySelector('.g')
+      alert = document.querySelector('.alert')
 
 const URL = "https://timescrapy.com/signup";
 
@@ -78,8 +77,6 @@ const fn = () => new Promise(resolve => {
 
 // Main
 window.onload = () => window.scrollTo(0, 0)
-
-g.addEventListener("click", e => e.preventDefault())
 
 btn.addEventListener("click", async (event) => {
     event.preventDefault()

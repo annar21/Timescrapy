@@ -8,6 +8,53 @@
     box-sizing: border-box;
 }
 
+#blackBG {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .7);
+    z-index: 9999;
+}
+
+.hide {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.three-dots__container1 {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+}
+
+.DOT {
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: #757678;
+}
+
+.DOT1 {
+    animation: scaleDot .5s linear 0s infinite alternate;
+    
+}
+
+.DOT2 {
+    animation: scaleDot .5s linear .25s infinite alternate;
+}
+
+.DOT3 {
+    animation: scaleDot .5s linear .5s infinite alternate;
+}
 
 
 button:focus {
@@ -19,7 +66,8 @@ button:focus {
     background-color: #ff0000;
     color: #fff;
     font-family: "Poppins", sans-serif;
-    width: 274px;
+    width: fit-content;
+    padding: 0 15px;
     height: 42px;
     line-height: 42px;
     text-align: center;
@@ -36,6 +84,7 @@ button:focus {
     z-index: 2000;
     opacity: 0;
     visibility: hidden;
+    font-weight: 600;
 }
 
 .alert__mark {
@@ -73,6 +122,62 @@ button:focus {
     background-color: transparent;
 }
 
+/*  */
+.alertS {
+    background-color: #025f1c;
+    color: #fff;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    width: fit-content;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 8000;
+
+    padding: 0 15px;
+}
+
+.alertS__check-mark {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+}
+
+.alertS__check-mark::before, .alertS__check-mark::after {
+    content: "";
+    background-color: #025f1c;
+    height: 1.5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 1.2px;
+}
+
+.alertS__check-mark::before {
+    width: 4px;
+    transform: rotate(45deg) translate(-58%, 215%);
+}
+
+.alertS__check-mark::after {
+    width: 8px;
+    transform: rotate(-45deg) translate(-19%, -100%);
+}
 
 /*  */
 
@@ -140,23 +245,27 @@ button:focus {
 }
 
 .logo__img img {
-    width: 50px;
+    height: 44px;   
+    width: auto;
 }
 
 .text1 {
-    font-size: 16px;
+    font-size: 23px;
     font-family: "Poppins", sans-serif;
     font-weight: 700;
     width: fit-content;
 }
 
 .text2 {
-    font-size: 5px;
+    font-size: 8px;
     color: #1400FF;
     font-family: "Poppins", sans-serif;
-    margin-left: 2px;
-    letter-spacing: 4px;
+    margin: 0 auto;
+    letter-spacing: 5px;
     width: fit-content;
+    position: relative;
+    top: -5px;
+    left: 2px;
 }
 
 .menu {
@@ -704,6 +813,14 @@ button:focus {
     font-family: "Calibri", sans-serif;
 }
 
+.form__for__calendly {
+    grid-template-rows: 60px 60px 45px;
+}
+
+.form__for__hubspot {
+    grid-template-rows: 60px 45px;
+}
+
 .i {
     margin-bottom: 35px;
 }
@@ -1115,5 +1232,72 @@ button:focus {
     .guests-list {
         min-width: 420px;
         width: 32.8vw;
+    }
+
+    .form__for__calendly {
+        grid-template-rows: 52.2px 52.2px 31.1px;
+    }
+    
+    .form__for__hubspot {
+        grid-template-rows: 52.2px 31.1px;
+    }
+
+    .search-form input {
+        height: 52.2px;
+        width: 407.8px;
+    }
+
+    #add-btn-form {
+        height: 37.4px;
+        border-radius: 14.78px;
+        font-size: 18px;
+    }
+
+    .form-wrapper {
+        width: 465px;
+    }
+
+    .form-header {
+        width: 407px;
+    }
+
+    .toCalendly, .toHubspot {
+        font-size: 15.6px;
+    }
+
+    .change-cont {
+        width: calc(190px / 1.15);
+        height: calc(45px / 1.15);
+    }
+
+    .background-effect {
+        width: calc(88px / 1.15);
+        height: calc(37px / 1.15);
+        top: 50%;
+    }
+
+    .close {
+        width: calc(45px / 1.15);
+        height: calc(45px / 1.15);
+        border-radius: calc(17px / 1.15);
+    }
+
+    .form-wrapper {
+        padding: calc(18px / 1.15) calc(30px / 1.15) calc(30px / 1.15);
+    }
+}
+
+@media (max-width: 1465px) {
+    .wrapper {
+        width: 1920px;
+        height: 1080px;
+        overflow: scroll;
+        grid-template-rows: 100px calc(1080px - 100px);
+        grid-template-columns: 250px calc(1920px - 250px);
+    }
+    
+    .f {
+        width: 1920px;
+        height: 1080px;
     }
 }

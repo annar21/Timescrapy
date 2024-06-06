@@ -463,9 +463,14 @@ saveBtn.addEventListener("click", (event) => {
 
 signoutBtn.addEventListener("click", e => {
     e.preventDefault()
-    fetch('https://timescrapy.com/signout', {
+    try {
+        fetch('https://timescrapy.com/signout', {
         method: 'POST'
     })
+    } catch {
+        alertErrText.innerText = 'Something went wrong. Please try again later.'
+        showAlert(alertError)
+    }
 })
 
 timezoneInp.addEventListener("input", () => {

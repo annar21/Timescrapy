@@ -97,26 +97,35 @@ input:focus, button:focus {
 }
 
 .logo__img img {
-    width: 50px;
+    height: 44px;
+    width: auto;
 }
 
 .logo__text {
     font-family: "Poppins", sans-serif;
+    position: relative;
+    left: 5px;
 }
 
 .text1 {
-    color: #000;
     font-weight: 700;
-    text-align: center;
+    font-size: 23px;
+    position: relative;
+    top: 1px;
+    color: #000;   
 }
 
 .text2 {
+    font-size: 8px;
     color: #1400FF;
-    font-size: 5.14px;
-    letter-spacing: 3.9px;
-    font-weight: 500;
+    letter-spacing: 5px;
+    width: fit-content;
     text-align: center;
-    padding-left: 4px;
+    margin: 0 auto;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    top: -5px;
+    left: 2px;
 }
 
 .link {
@@ -241,9 +250,9 @@ input:focus, button:focus {
 /* form */
 form {
     border-radius: 15px;
-    box-shadow: 0 0 76px 0 rgba(190, 190, 255, 0.47);
     padding: 20px 30px 40px;
     background-color: #fff;
+    box-shadow: 0 0 100px 0 rgba(0, 0, 0, .2);
 }
 
 .err-text {
@@ -251,8 +260,7 @@ form {
     font-size: 13px;
     font-family: "Poppins", sans-serif;
     text-align: left;
-    margin: -17px auto 20px;
-    width: 469px;
+    margin: -17px 0 0 0;
 }
 
 .form__title {
@@ -278,9 +286,14 @@ form {
 }
 
 .inp-wrapper {
-    max-height: 85px;
-    overflow: hidden;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
+    height: fit-content;
+    width: 469px;
+}
+
+.btn-wrapper {
+    margin: 0 auto;
+    width: fit-content;
 }
 
 .inp {
@@ -324,6 +337,7 @@ form {
 
 .google-btn {
     margin-top: 34px;
+    width: fit-content;
 }
 
 .g {
@@ -386,7 +400,7 @@ form {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    height: 1px;
+    height: 1.5px;
     width: 214px;
     background-color: #d9d9d9;
 }
@@ -445,13 +459,19 @@ form {
     .main {
         background-image: none;
         flex-direction: column-reverse;
-        padding: 132px 0 50px;
+        padding: 70px 0 50px;
         height: auto;
     }
 
     .text {
         margin-top: 150px;
         margin-left: 153px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .text {
+        margin-top: 77px;
     }
 }
 
@@ -476,21 +496,42 @@ form {
 
     .form__title {
         font-size: 20px;
+        padding-bottom: 35px;
+        padding-top: 0;
+    }
+
+    .p__1, .p__2 {
+        font-size: clamp(15px, 5vw, 30px);
     }
 
     form {
-        width: 340px;
+        width: 84vw;
+        padding-top: 36px;
+        box-shadow: 0 0 76.2px 0 rgba(190, 190, 255, 0.47);
     }
 
     .inp, .g, #btn {
-        width: 280px;
-        height: 50px;
+        width: 69vw;
+        height: clamp(45px, 8.8vw, 50px);
         font-size: 18px;
-        border-radius: 15px;
+        border-radius: 10px;
     }
 
-    #btn p, .g p {
-        font-size: 18px;
+    .inp-wrapper {
+        padding-bottom: clamp(15px, 6vw, 24px);
+        width: 69vw;
+    }
+
+    .g p, #btn p {
+        font-size: clamp(14px, 3.8vw, 18px);
+    }
+
+    .text {
+        margin-top: 83px;
+    }
+
+    .inp {
+        padding-left: 12px;
     }
 
     .g p {
@@ -504,15 +545,23 @@ form {
     }
 
     .inp::placeholder {
-        font-size: 18px;
+        font-size: clamp(12px, 4vw, 16px);
     }
 
     .or {
-        width: 280px;
+        width: 84vw;
     }
 
     .or::before, .or::after {
-        width: 120px;
+        width: 28vw;
+    }
+
+    .or::before {
+        left: 9vw;
+    }
+
+    .or::after {
+        right: 9vw;
     }
 
     .block__links {
@@ -537,6 +586,10 @@ form {
         font-weight: 700; 
         text-align: center;
     }
+
+    .header {
+        padding-left: 20px;
+    }
 }
 
 @media (max-width: 455px) {
@@ -556,11 +609,11 @@ form {
 
 @media (max-height: 860px) and (min-width: 1300px) {
     form {
-        padding: 10px 30px 20px;
+        padding: 0 30px 20px;
     }
 
     .form__title {
-        padding: 15px 0 40px;
+        padding: 15px 0 30px;
     }
 
     .text {

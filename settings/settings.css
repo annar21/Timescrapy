@@ -46,7 +46,8 @@
 }
 
 .logo__img img {
-    width: 50px;
+    height: 44px;   
+    width: auto;
 }
 
 .text1 {
@@ -64,6 +65,9 @@
     text-align: center;
     margin: 0 auto;
     font-family: "Poppins", sans-serif;
+    position: relative;
+    top: -5px;
+    left: 2px;
 }
 
 .menu {
@@ -310,8 +314,10 @@ input:last-of-type {
     background-color: #025f1c;
     color: #fff;
     font-size: 15px;
+    font-weight: 600;
     font-family: "Poppins", sans-serif;
-    width: 274px;
+    width: fit-content;
+    padding: 0 15px;
     height: 42px;
     line-height: 42px;
     text-align: center;
@@ -361,8 +367,10 @@ input:last-of-type {
     background-color: #ff0000;
     color: #fff;
     font-size: 15px;
+    font-weight: 600;
     font-family: "Poppins", sans-serif;
-    width: 274px;
+    width: fit-content;
+    padding: 0 15px;
     height: 42px;
     line-height: 42px;
     text-align: center;
@@ -378,35 +386,6 @@ input:last-of-type {
     transform: translateX(-50%);
     opacity: 0;
     visibility: hidden;
-}
-
-.alert__err__check-mark {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #fff;
-    position: relative;
-    transform: rotate(45deg);
-}
-
-.alert__err__check-mark::before, .alert__err__check-mark::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 10px;
-    transform-origin: center center;
-    height: 1.5px;
-    background-color: #ff0000;
-}
-
-.alert__err__check-mark::before {
-    transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.alert__err__check-mark::after {
-    transform: translate(-50%, -50%);
 }
 
 /* avatar */

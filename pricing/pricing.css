@@ -7,6 +7,10 @@
     list-style-type: none;
 }
 
+a:visited {
+    color: inherit;
+}
+
 .alert {
     background-color: #025f1c;
     color: #fff;
@@ -87,53 +91,6 @@
     opacity: 0;
     visibility: hidden;
 }
-
-/* .alert__err__check-mark {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #fff;
-    position: relative;
-    transform: rotate(45deg);
-} */
-
-/* .alert__err__check-mark::before, .alert__err__check-mark::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 46%;
-    left: 50%;
-    width: 10px;
-    transform-origin: center center;
-    height: 1.5px;
-    background-color: #ff0000;
-}
-
-.alert__err__check-mark::before {
-    transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.alert__err__check-mark::after {
-    transform: translate(-50%, -50%);
-} */
-
-/* .al1, .al2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ff0000;
-}
-
-.al1 {
-    width: 10px;
-    height: 1.5px;
-}
-
-.al2 {
-    width: 1.5px;
-    height: 10px;
-} */
 
 #transparentBackground {
     position: absolute;
@@ -454,16 +411,9 @@
     margin-right: 25px;
 }
 
-.settings-icon i {
-    font-size: 65px;
+.settings-icon img {
     margin: auto 0;
-    transition: all .2s linear;
-    color: #999;
-    cursor: pointer;
-}
-
-.settings-icon i:hover {
-    color: #727272;
+    width: inherit;
 }
 
 .avatar img {
@@ -856,6 +806,13 @@
     }
 }
 
+@media (max-width: 1700px) {
+    .wrapper {
+        grid-template-columns: 230px calc(100vw - 230px);
+        grid-template-rows: 80px calc(100vh - 80px);
+    }
+}
+
 @media (max-width: 1664px) {
     .main {
         gap: 50px;
@@ -934,10 +891,6 @@
 }
 
 @media (max-width: 1530px) {
-    .wrapper {
-        grid-template-columns: 200px calc(100vw - 200px);
-    }
-
     .bottom {
         width: 200px;
     }
@@ -983,7 +936,7 @@
     }
 }
 
-@media (max-width: 1410px) {
+@media (max-width: 1440px) {
     .card {
         min-width: 250px;
         height: 500px;
@@ -1016,7 +969,7 @@
 }
 
 
-@media (max-width: 1325px) {
+@media (max-width: 1350px) {
     .wrapper {
         width: 1920px;
         height: 1080px;
@@ -1102,10 +1055,6 @@
         height: 50px;
     }
 
-    .settings-icon i {
-        font-size: 50px;
-    }
-
     .change-tariff__wrapper {
         top: 40px;
     }
@@ -1119,10 +1068,6 @@
     .settings-icon, .avatar, .avatar img {
         width: 45px;
         height: 45px;
-    }
-
-    .settings-icon i {
-        font-size: 45px;
     }
 
     .change-tariff__wrapper {

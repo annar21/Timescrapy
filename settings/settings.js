@@ -7,7 +7,8 @@ const saveBtn = document.getElementById("save"),
       timezoneInp = document.getElementById("timezoneInp"),
       userUrlInp = document.getElementById("calendlyUrlInp"),
       userAvatar = document.querySelector('.avatar'),
-      alertErrText = document.querySelector('.alert__err-text')
+      alertErrText = document.querySelector('.alert__err-text'),
+      donateBtn = document.querySelector('.btn')
 
 const timezones = [
     'Europe/Andorra',
@@ -496,4 +497,9 @@ timezoneInp.addEventListener("input", () => {
 userUrlInp.addEventListener("input", () => {
     if(userUrlInp.value !== userUrl) saveBtn.disabled = false
     else saveBtn.disabled = true
+})
+
+donateBtn.addEventListener("click", event => {
+    event.preventDefault()
+    fetch('https://timescrapy.com/donate')
 })

@@ -8,6 +8,10 @@
     box-sizing: border-box;
 }
 
+a:visited {
+    color: inherit;
+}
+
 #blackBG {
     position: absolute;
     top: 0;
@@ -423,14 +427,9 @@ button:focus {
     cursor: pointer;
 }
 
-.settings-icon i {
-    font-size: 50px;
+.settings-icon img {
     margin: auto 0;
-    transition: all .2s linear;
-}
-
-.settings-icon i:hover {
-    color: #727272;
+    width: inherit;
 }
 
 /* Main */
@@ -1301,3 +1300,10 @@ button:focus {
         height: 1080px;
     }
 }
+
+@media (max-height: 770px) and (min-width: 1330px) {
+    .wrapper {
+        grid-template-rows: 70px calc(-70px + 100vh);
+    }
+}
+

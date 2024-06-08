@@ -65,13 +65,15 @@ const removeCurrentButton = () => {
 
 const fn = el => {
     transparentBackground.classList.remove("hide")
-    upgradeSubscription(createPayload(el))
+    const [payload, index] = createPayload(el)
+    upgradeSubscription(payload)
         .then(response => response.json())
         .then(data => {
             console.log(data)
             console.log(data.message)
             transparentBackground.classList.add("hide")
             if(data.success) {
+                userPlan = plansTolowerCase[index]
                 removeCurrentButton()
                 if(isMonthly) {
                     bcgEffect.style.left = "calc(0% + 2px)"  
@@ -109,7 +111,6 @@ const fn = el => {
 const createPayload = el => {
     const payload = new Object()
     const index = [...cBtns].findIndex(element => element === el)
-    userPlan = plansTolowerCase[index]
     if(userPlan !== "basic") {
         if(yearly.classList.contains("clicked")) {
             isMonthly = false
@@ -124,7 +125,7 @@ const createPayload = el => {
                     payload.new_plan_id = yearly_premium_plus_plan_id
                     break
                 case 3:
-                    payload.new_plan_id = lifetime_plan_id
+                    payload.new_plan_id = "lifetime"
                     break
             }
         } else {
@@ -140,7 +141,7 @@ const createPayload = el => {
                     payload.new_plan_id = monthly_premium_plus_plan_id
                     break
                 case 3:
-                    payload.new_plan_id = lifetime_plan_id
+                    payload.new_plan_id = "lifetime"
                     break
             } 
         }
@@ -150,12 +151,15 @@ const createPayload = el => {
             switch(index) {
                 case 1:
                     payload.subscription_url = premiumYearlyURL
+                    payload.new_plan_id = ""
                     break
                 case 2:
                     payload.subscription_url = premiumPlusYearlyURL
+                    payload.new_plan_id = ""
                     break
                 case 3:
-                    payload.subscription_url = lifetimeURL
+                    payload.new_plan_id = "lifetime"
+                    payload.subscription_url = ""
                     break
             }
             
@@ -163,19 +167,28 @@ const createPayload = el => {
             switch(index) {
                 case 1:
                     payload.subscription_url = premiumMonthlyURL
+                    payload.new_plan_id = ""
                     break
                 case 2:
                     payload.subscription_url = premiumPlusMonthlyURL
+                    payload.new_plan_id = ""
                     break
                 case 3:
-                    payload.subscription_url = lifetimeURL
+                    payload.new_plan_id = "lifetime"
+                    payload.subscription_url = ""
                     break
             } 
         }
-        payload.new_plan_id = ""
     }
 
-    return payload
+    console.log(payload)
+    for (const key in payload) {
+        if (Object.hasOwnProperty.call(object, key)) {
+            console.log(payload[key])
+            
+        }
+    }
+    return [payload,  index]
 }
 
 const showAlert = alert => {
@@ -198,7 +211,6 @@ const showAlert = alert => {
 const initcBtnsNotCurrent = () => {
     cBtnsNotCurrent = Array.from(cBtns).filter(el => !el.classList.contains("current"))
     document.querySelector('.wrapper').addEventListener("click", event => {
-        event.preventDefault()
         const targetedElement = event.target
         if(targetedElement.tagName.toLowerCase() === 'a' && targetedElement.parentElement.classList.contains('c-btn') && !targetedElement.parentElement.classList.contains('current')) {
             fn(targetedElement.parentElement)

@@ -85,7 +85,7 @@ input:focus, button:focus {
     align-items: center;
     justify-content: space-between;
     padding: 0 70px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .25);
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .25);
     position: relative;
     z-index: 2;
 }

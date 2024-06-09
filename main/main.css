@@ -61,8 +61,6 @@ button {
 }
 
 .btn1 {
-    width: 66px;
-    height: 41px;
     cursor: pointer;
     background-color: transparent;
 }
@@ -102,19 +100,24 @@ button {
 }
 
 .btn2 {
-    width: clamp(90px, 5.73vw, 110px);
-    height: clamp(33px, 2.14vw, 41px);
+    width: clamp(66px, 5.73vw, 109px);
+    height: clamp(31px, 2.14vw, 41px);
     background-color: #0069FF;
     border: 2px #0069FF solid;
     border-radius: 7px;
     transition: all .35s linear;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .link2 {
     color: #fff;
     position: relative;
     z-index: 10;
+    font-weight: 600;
 }
 
 .btn2:hover {
@@ -131,6 +134,9 @@ button {
 
 .block__links {
     padding-right: 5%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 /* Main */
@@ -296,7 +302,7 @@ button {
 
 .footer_1__list__item {
     display: grid;grid-template-columns: 40px minmax(637px, 830px);
-    column-gap: 46px;
+    column-gap: clamp(5px, 2.4vw, 46px);
 }
 
 .footer_1__list__item:not(:last-of-type) {
@@ -522,8 +528,8 @@ button {
 @media (max-width: 1100px) {
     .mark {
         position: relative;
-        top: 23%;
-        left: -90%;
+        top: 14%;
+        left: 0%;
     }
     
     .mark::before, .mark::after {
@@ -549,6 +555,18 @@ button {
         left: calc(50% + 11.25px);
         transform-origin: left center;
     }
+
+    .footer__header {
+        margin-bottom: 70px;
+    }
+}
+
+@media (max-width: 927px) {
+    .footer__header_1 {
+        text-align: center;
+        position: relative;
+        left: -9.71vw;
+    }
 }
 
 @media (max-width: 800px) {
@@ -570,6 +588,10 @@ button {
         max-width: 270px;
     }
 
+    .hcontainer {
+        height: 76px;
+    }
+
     .footer__body {
         max-width: 70vw;
         margin: 0 auto;
@@ -581,6 +603,10 @@ button {
         max-width: 250px;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .footer__header_1 {
+        position: static;
     }
 
     .footer__item_1, .footer__item_2 {
@@ -609,11 +635,16 @@ button {
     .text2 a {
         font-size: 5px;
         letter-spacing: 4.5px;
+        top: -7px;
     }
 
     .logo__image {
         width: 43px;
         height: auto;
+    }
+
+    .block__links {
+        gap: 7px;
     }
 }
 

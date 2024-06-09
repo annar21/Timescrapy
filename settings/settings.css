@@ -444,6 +444,11 @@ input:last-of-type {
     background-color: #B40000;
 }
 
+.logout__btn:active {
+    background-color: #9b0101;
+    border-color: #9b0101;
+}
+
 /* adaptive */
 /* width */
 @media (max-width: 890px) {

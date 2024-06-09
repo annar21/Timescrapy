@@ -53,7 +53,6 @@ const options = document.querySelector('.options'),
       dotsContainer = document.querySelector('.three-dots__container'),
       currentQuantitySpan = document.getElementById("currentQuantitySpan"),
       maxQuantitySpan = document.getElementById("maxQuantitySpan"),
-      donateBtn = document.querySelector('.btn'),
       blackBG = document.getElementById("blackBG"),
       alertSuccess = document.querySelector('.alertS'),
       alertSuccessText = document.querySelector('.alertS__text')
@@ -628,8 +627,3 @@ formWrapper.addEventListener("mousedown", startDrag)
 
 // add user
 addUserBtn.addEventListener("click", addUser)
-
-donateBtn.addEventListener("click", event => {
-    event.preventDefault()
-    fetch('https://timescrapy.com/donate')
-})

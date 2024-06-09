@@ -60,20 +60,20 @@ btn.addEventListener("click", async (event) => {
         post(URL, body)
             .then(response => {
                 console.log(response)
-                if(response.ok) {
-                    return response.json()  
+                if(response.redirected) {
+                    window.location.href = response.url  
+                } else {
+                    return response.json().then(errData => {
+                        alertText.innerText = errData.error
+                        alert.style.transition = 'all .3s ease'
+                        alert.style.top = '60px'
+                        alert.style.opacity = '1'
+                        alert.style.visibility = 'visible'
+                        fn()
+    
+                    })
                 }
-                return response.json().then(errData => {
-                    alertText.innerText = errData.message
-                    alert.style.transition = 'all .3s ease'
-                    alert.style.top = '60px'
-                    alert.style.opacity = '1'
-                    alert.style.visibility = 'visible'
-                    fn()
-
-                })
             })
-            .then(data => console.log(data))
             .catch(err => console.log(err))
     } else {
         alertText.innerText = "The fields cannot be blank"

@@ -10,8 +10,7 @@ const monthly = document.querySelector(".monthly"),
       alertSuccess = document.querySelector(".alert"),
       alertError = document.querySelector('.alert__err'),
       alertErrText = document.querySelector('.alert__err-text'),
-      alertSuccessText = document.querySelector('.alert__text'),
-      donateBtn = document.querySelector('.btn')
+      alertSuccessText = document.querySelector('.alert__text')
 
 let cBtnsNotCurrent 
 
@@ -315,9 +314,4 @@ monthly.addEventListener("click", () => {
 
         yearly.classList.remove("clicked")
     }
-})
-
-donateBtn.addEventListener("click", event => {
-    event.preventDefault()
-    fetch('https://timescrapy.com/donate')
 })

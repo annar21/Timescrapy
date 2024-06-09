@@ -1295,7 +1295,7 @@ button:focus {
         grid-template-columns: 250px calc(1920px - 250px);
     }
     
-    .f {
+    .f, #blackBG {
         width: 1920px;
         height: 1080px;
     }

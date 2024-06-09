@@ -56,25 +56,33 @@ a:visited, a:active {
     margin-left: 7px;
 }
 
-.logo__image {
-    width: 50px;
-}
-
 .text1, .text2 {
     font-family: "Poppins", sans-serif;
 }
 
+.logo__img img {
+    height: 44px;   
+    width: auto;
+}
+
 .text1 {
+    font-size: 23px;
+    font-family: "Poppins", sans-serif;
     font-weight: 700;
+    width: fit-content;
 }
 
 .text2 {
-    font-size: 5.14px;
-    letter-spacing: 4px;
-}
-
-.text2 a {
+    font-size: 8px;
     color: #1400FF;
+    letter-spacing: 5px;
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    top: -5px;
+    left: 2px;
 }
 
 .block__logo {

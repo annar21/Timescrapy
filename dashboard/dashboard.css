@@ -239,7 +239,8 @@ button:focus {
     justify-content: center;
     align-items: center;
     padding-top: 27px;
-    margin-bottom: 55px;
+    margin-bottom: 50px;
+    padding-right: 7px;
 }
 
 .logo__text {
@@ -289,24 +290,24 @@ button:focus {
     font-size: 18px;
 }
 
-.link1 a {
-    color: #0069ff;
+.link2 a {
+    color: #b1b1b1;
 }
 
-.link2 a {
-    color: #b1b1b1;   
+.link1 a {
+    color: #0069ff;
 }
 
 .img i {
     font-size: 25px;
 }
 
-.img1 i {
-    color: #0069FF;
-}
-
 .img2 i {
     color: #b1b1b1;
+}
+
+.img1 i {
+    color: #0069FF;
 }
 
 .img1::before {
@@ -317,8 +318,8 @@ button:focus {
     border-radius: 20px;
     position: absolute;
     left: -4px;
-    top: 108px;;
-}
+    top: 113px;
+}   
 
 .bottom {
     width: 100%;
@@ -1306,4 +1307,3 @@ button:focus {
         grid-template-rows: 70px calc(-70px + 100vh);
     }
 }
-

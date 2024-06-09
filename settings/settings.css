@@ -37,7 +37,7 @@ a:visited, a:active {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 33px;
+    padding-top: 27px;
     margin-bottom: 50px;
 }
 
@@ -451,11 +451,25 @@ input:last-of-type {
 
 /* adaptive */
 /* width */
+@media (max-width: 1700px) {
+    .wrapper {
+        grid-template-columns: 230px calc(100vw - 230px);
+    }
+
+    .bottom {
+        width: 230px;
+    }
+}
+
 @media (max-width: 890px) {
     .wrapper {
         width: 1920px;
         height: 1080px;
         grid-template-columns: 250px calc(1920px - 250px);
+    }
+
+    .bottom {
+        width: 250px;   
     }
 }
 /* height */

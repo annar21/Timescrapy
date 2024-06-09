@@ -65,46 +65,57 @@ const removeCurrentButton = () => {
 const fn = el => {
     transparentBackground.classList.remove("hide")
     const [payload, index] = createPayload(el)
-    upgradeSubscription(payload)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            console.log(data.message)
-            transparentBackground.classList.add("hide")
-            if(data.success) {
-                userPlan = plansTolowerCase[index]
-                removeCurrentButton()
-                if(isMonthly) {
-                    bcgEffect.style.left = "calc(0% + 2px)"  
-                    premiumPrice.style.right = "0px"
-                    premiumPlusPrice.style.right = "0px" 
-                    premiumPrice.innerHTML = premiumText1
-                    premiumPlusPrice.innerHTML = premiumText1
-                    yearly.classList.remove("clicked", "ON1")
-                    yearly.classList.add("OFF1")
-                    monthly.classList.add("ON1")
-                } else {
-                    bcgEffect.style.left = "calc(100% - 134px)"
-                    premiumPrice.style.right = "-25px"
-                    premiumPlusPrice.style.right = "-25px"
-                    premiumPrice.innerHTML = premiumText2
-                    premiumPlusPrice.innerHTML = premiumText2
-                    yearly.classList.add("clicked", "ON1")
-                    yearly.classList.remove("OFF1")
-                    monthly.classList.remove("ON1")
-                    monthly.classList.add("OFF1")
+    if(userPlan === "basic") {
+        upgradeSubscription(payload)
+            .then(response => {
+                if(response.redirected) window.location.href = response.url
+                else {
+                    alertErrText.innerText = "Something went wrong!"
+                    showAlert(alertError)
                 }
+            })
+    } else {
+        upgradeSubscription(payload)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                console.log(data.message)
+                transparentBackground.classList.add("hide")
+                if(data.success) {
+                    userPlan = plansTolowerCase[index]
+                    removeCurrentButton()
+                    if(isMonthly) {
+                        bcgEffect.style.left = "calc(0% + 2px)"  
+                        premiumPrice.style.right = "0px"
+                        premiumPlusPrice.style.right = "0px" 
+                        premiumPrice.innerHTML = premiumText1
+                        premiumPlusPrice.innerHTML = premiumText1
+                        yearly.classList.remove("clicked", "ON1")
+                        yearly.classList.add("OFF1")
+                        monthly.classList.add("ON1")
+                    } else {
+                        bcgEffect.style.left = "calc(100% - 134px)"
+                        premiumPrice.style.right = "-25px"
+                        premiumPlusPrice.style.right = "-25px"
+                        premiumPrice.innerHTML = premiumText2
+                        premiumPlusPrice.innerHTML = premiumText2
+                        yearly.classList.add("clicked", "ON1")
+                        yearly.classList.remove("OFF1")
+                        monthly.classList.remove("ON1")
+                        monthly.classList.add("OFF1")
+                    }
 
-                addCurrentButton()
-                cBtnsNotCurrent = Array.from(cBtns).filter(el => !el.classList.contains("current"))
-                alertSuccessText.innerText = data.message
-                showAlert(alertSuccess)
-            } else {
-                alertErrText.innerText = data.message
-                showAlert(alertError)
-            }
-        })
-        .catch(err => console.log(err))
+                    addCurrentButton()
+                    cBtnsNotCurrent = Array.from(cBtns).filter(el => !el.classList.contains("current"))
+                    alertSuccessText.innerText = data.message
+                    showAlert(alertSuccess)
+                } else {
+                    alertErrText.innerText = data.message
+                    showAlert(alertError)
+                }
+            })
+            .catch(err => console.log(err))
+    }
 }
 
 const createPayload = el => {
@@ -179,14 +190,7 @@ const createPayload = el => {
             } 
         }
     }
-
-    console.log(payload)
-    for (const key in payload) {
-        if (Object.hasOwnProperty.call(object, key)) {
-            console.log(payload[key])
-            
-        }
-    }
+    
     return [payload,  index]
 }
 

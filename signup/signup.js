@@ -7,19 +7,19 @@ const btn = document.getElementById("btn"),
       alertText = document.querySelector('.alert__text'),
       alert = document.querySelector('.alert')
 
-const URL = "https://timescrapy.com/signup";
+const URL = "https://timescrapy.com/signup"
 
 // Functions
 async function sha256Hash(input) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input);
+    const encoder = new TextEncoder()
+    const data = encoder.encode(input)
 
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data)
 
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashedString = hashArray.map(byte => ('00' + byte.toString(16)).slice(-2)).join('');
+    const hashArray = Array.from(new Uint8Array(hashBuffer))
+    const hashedString = hashArray.map(byte => ('00' + byte.toString(16)).slice(-2)).join('')
 
-    return hashedString;
+    return hashedString
 }
 
 function post(url, body) {

@@ -493,7 +493,7 @@ getUserInfo()
     .then(data => {
         console.log(data)
         const obj = {}
-        obj[data.email] = data.username
+        obj[data.email] = data.calendly_url
         users.calendly.push(obj)
         userPlan = data.plan.toLowerCase()
         usersMaxQuantity = userPlan === 'basic' ? 2:10
@@ -533,8 +533,12 @@ getUserInfo()
             })
         }
         loadCalendar(new Date(), new Date(new Date().getFullYear(), parseInt(new Date().getMonth()) + 1, 0))
-            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                return response.json()
+            })
             .then(d => {
+                console.log(d)
                 addFreeDays(d)
                 dotsContainer.classList.add("hidden")
                 initCalendar()

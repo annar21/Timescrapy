@@ -1116,19 +1116,33 @@ button:focus {
     overflow-y: auto;
 }
 
+
+/*
 .time__item {
-    width: 288px;
-    height: 70px;
+        width: calc(288px * .8);
+        margin-bottom: 0;
+        line-height: calc(70px * .8);  
+    }
+
+    .time, .create-btn {
+        line-height: calc(70px * .8);
+        height: calc(70px * .8);
+    }
+
+*/
+
+.time__item {
+    width: calc(288px * .8);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
+    margin-bottom: 0;
 }
 
 .time, .create-btn {
-    height: 70px;
+    height: calc(70px * .8);  
     text-align: center;
-    line-height: 70px;
+    line-height: calc(70px * .8);  
     cursor: pointer;
     transition: all .2s linear;
 }
@@ -1213,17 +1227,6 @@ button:focus {
     .item2__header {
         font-size: calc(30px * .8);
     } 
-
-    .time__item {
-        width: calc(288px * .8);
-        margin-bottom: 0;
-        line-height: calc(70px * .8);  
-    }
-
-    .time, .create-btn {
-        line-height: calc(70px * .8);
-        height: calc(70px * .8);
-    }
 
     .Time {
         margin-left: calc(115px * .5);

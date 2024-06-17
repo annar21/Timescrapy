@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> -->
+     <link rel="stylesheet" href="main.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,20 +12,18 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="icon" type="image/x-icon" href="../imgs/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='imgs/favicon.ico') }}">
 
     <title>TimeScrapy || Main Page</title>
 </head>
 <body>
     <div class="wrapper">
-
-
         <header class="header">
             <div class="hcontainer">
 
                 <div class="block block__logo">
                     <div class="logo__img">
-                        <a href="https://timescrapy.com"><img class="logo__image" src="../imgs/logo.svg" alt="logo"></a>
+                        <a href="https://timescrapy.com"><img class="logo__image" src="{{ url_for('static', filename='imgs/logo.svg') }}" alt="logo"></a>
                     </div>
 
                         <div class="logo__text">
@@ -53,7 +52,7 @@
                         <div class="main__text-item item1">Easily schedule multi-party events with TimeScrapy! One click, and our bot creates a calendar of ideal times for your team.</div>
                     
                         <div class="main__text-item item2">
-                            <div class="item2__1"><a href="https://timescrapy.com/google-auth"><button class="google"><img src="../imgs/google-logo.svg" alt="logo"><p class="google-text">Sign up with Google</p></button></a></div>
+                            <div class="item2__1"><a href="https://timescrapy.com/google-auth"><button class="google"><img src="{{ url_for('static', filename='imgs/google-logo.svg') }}" alt="logo"><p class="google-text">Sign up with Google</p></button></a></div>
                             <div class="item2__2">OR</div>
                             <div class="item2__3"><a href="https://timescrapy.com/signup" class="link3"><p class="link-p">Sign up free with email. </p></a> No credit card required.</div>
                         </div>
@@ -65,7 +64,7 @@
 
         <footer class="footer">
             <div class="footer__item footer__item_1">
-                <div class="footer__header footer__header_1">No more problems coordinating with multiple parties</div>
+                <div class="footer__header">No more problems coordinating with multiple parties</div>
 
                 <div class="footer__body footer_1__body">
                     <div class="footer_1__list">
@@ -129,7 +128,6 @@
 
                             <div class="up__item2-item2">
                                 <div class="email email1">timescrapy@gmail.com</div>
-                                <div class="email email2">aregak.dev@gmail.com</div>
                             </div>
                         </div>
 

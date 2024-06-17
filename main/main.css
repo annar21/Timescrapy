@@ -26,7 +26,7 @@ button {
 /* Header */
 .hcontainer {
     background-color: #fff;
-    height: 89px;
+    height: 80px;
 
     display: flex;
     justify-content: space-between;
@@ -147,10 +147,10 @@ button {
     margin-top: 2px;
     padding-bottom: clamp(220px, 32.41vh, 350px); /* 350px 32.41vh*/
     padding-top: clamp(160px, 23.15vh, 250px);    /* 250px */
-    height: calc(100vh - 89px - 2px);
+    height: calc(100vh - 80px - 2px);
     max-height: 1080px;
     box-sizing: border-box;
-    background-image: url(../imgs/main-background.svg);
+    background-image: url('/static/imgs/main-background.svg');
     background-repeat: no-repeat;
     background-size: 88%;
     background-position: 8.6vw -100px;
@@ -615,7 +615,7 @@ button {
 
     .mcontainer {
         padding-top: 110px;
-        height: calc(80vh - 89px - 2px);
+        height: calc(80vh - 80px - 2px);
         padding-bottom: clamp(177px, 25.41vh, 350px);
     }
 

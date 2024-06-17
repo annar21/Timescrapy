@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Signup.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}"> -->
+
+    <link rel="stylesheet" href="signup.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,32 +15,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="../imgs/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='imgs/favicon.ico') }}">
 
     <title>TimeScrapy || Sign Up</title>
 </head>
 <body>
     <div class="alert">
+        <div class="alert__mark"></div>
         <div class="alert__text"></div>
     </div>  
 
     <div class="wrapper">
         <header class="header">
 
-            <a href="https://timescrapy.com">
-                <div class="block block__logo">
+            <div class="block block__logo">
+                <div class="logo__img">
+                    <a href="https://timescrapy.com"><img class="logo__image" src="{{ url_for('static', filename='imgs/logo.svg') }}" alt="logo"></a>
+                </div>
 
-                    <div class="logo__img">
-                        <img src="../imgs/logo.svg" alt="logo">
-                    </div>
-    
-                    <div class="logo__text">
-                        <div class="text1">TIMESCRAPY</div>
-                        <div class="text2">SCHEDULING EASY</div>
-                    </div>
-
-                </div>  <!-- /.block__logo -->
-            </a> 
+                <div class="logo__text">
+                    <div class="text1"><a href="https://timescrapy.com">TIMESCRAPY</a></div>
+                    <div class="text2"><a href="https://timescrapy.com">SCHEDULING EASY</a></div>
+                </div>
+            </div>
 
             <div class="block block__links">
                 <p class="link">Already have an account? <a href="https://timescrapy.com/login" class="link-text">Sign In</a></p>
@@ -49,7 +48,7 @@
             <div class="text">
                 
                 <h4 class="h4">TRY TIMESCRAPY FOR FREE</h4>
-                <h1 class="h1">Create your <span class="blue">free</span> account</h1>
+                <h1 class="h1">Create your <span class="blue">free</span> account</h1>
                 <p class="p1">Make your scheduling process easier with TimeScrapy</p>
 
                 <p class="p2">Enjoy free access to TimeScrapy's essential features.</p>
@@ -89,7 +88,7 @@
                         <div class="google-signin">
                             <div class="or"><div>OR</div></div>
                             <div class="btn-wrapper">
-                                <div class="google-btn"><a href="https://timescrapy.com/google-auth"><div class="g"><img src="../imgs/google-logo.svg" alt="logo"><p>Sign up with Google</p></div></a></div>
+                                <div class="google-btn"><a href="https://timescrapy.com/google-auth"><div class="g"><img src="{{ url_for('static', filename='imgs/google-logo.svg') }}" alt="logo"><p>Sign up with Google</p></div></a></div>
                             </div>
                         </div> 
 
@@ -99,6 +98,6 @@
             </div>
         </main>
     </div>
-    <script src="signup.js"></script>
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
 </body>
 </html>

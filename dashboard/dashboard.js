@@ -105,7 +105,9 @@ for(let i = 1; i <= 3; i ++) {
     t.setMonth(new Date().getMonth() + i)
 }
 
-const names = new Array()
+let names = new Array(),
+    calendlyUrls = new Array(),
+    hubspotUrls = new Array()
 // Functions
 const guestTemplate = (name, imgUrl, service, slug) => `<div class="guest" id="${guestId(service, slug)}"><div class="guest__avatar"><div class="remove-user">REMOVE</div><img src="${imgUrl}"></div><div class="guest__name">${name}</div></div>`,
       avatarImage = imgUrl => `<img src="${imgUrl}" alt="profile picture">`,
@@ -304,30 +306,41 @@ function addUser(e) {
                     })
                 })
                 .then(data => {
-                    const obj = {}
-                    obj[data.email] = data.slug
-                    users.calendly.push(obj)
-                    names.push(data.username)
-                    guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, data.profile_pic, "calendly", data.slug))
-                    console.log(data)
-                    
-                    dotsContainer.classList.remove("hidden")
-                    loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(freeDays)
-                            clearFreeDays()
-                            console.log(freeDays)
-                            // console.log(data)
-                            addFreeDays(data)
-                            console.log(freeDays)
-                            dotsContainer.classList.add("hidden")
-                            initCalendar()
-                        })
-                        .catch(err => console.log(err))
-                    const el = document.getElementById(guestId("calendly", data.slug))
-                    changeUsersCurrentQuantity(true)
-                    el.querySelector('.remove-user').addEventListener("click", () => removeUser(el))
+                    if(!calendlyUrls.includes(data.calendly_url)) {
+                        const obj = {}
+                        obj[data.email] = data.slug
+                        users.calendly.push(obj)
+                        names.push(data.username)
+                        guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, data.profile_pic, "calendly", data.slug))
+                        console.log(data)
+                        
+                        dotsContainer.classList.remove("hidden")
+                        loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(freeDays)
+                                clearFreeDays()
+                                console.log(freeDays)
+                                // console.log(data)
+                                addFreeDays(data)
+                                console.log(freeDays)
+                                dotsContainer.classList.add("hidden")
+                                initCalendar()
+                            })
+                            .catch(err => console.log(err))
+                        const el = document.getElementById(guestId("calendly", data.slug))
+                        changeUsersCurrentQuantity(true)
+                        el.querySelector('.remove-user').addEventListener("click", () => removeUser(el))
+
+                        calendlyUrls.push(data.calendly_url)
+                    } else {
+                        alertText.innerText = 'User Already Added'
+                        alert.style.transition = 'all .3s ease'
+                        alert.style.top = '60px'
+                        alert.style.opacity = '1'
+                        alert.style.visibility = 'visible'
+                        showError()
+                    }
                 })
             } else {
                 alertText.innerText = 'User Already Added'
@@ -360,30 +373,41 @@ function addUser(e) {
                     })
                 })
                 .then(data => {
-                    console.log(data)
-                    const obj = {}
-                    obj[data.email] = data.slug
-                    users.hubspot.push(obj)
-                    names.push(data.username)
-                    guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, '../imgs/hubspot_logo.png', "hubspot", data.slug))
-    
-                    dotsContainer.classList.remove("hidden")
-                    loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(freeDays)
-                            clearFreeDays()
-                            console.log(freeDays)
-                            // console.log(data)
-                            addFreeDays(data)
-                            console.log(freeDays)
-                            dotsContainer.classList.add("hidden")
-                            initCalendar()
-                        })
-                        .catch(err => console.log(err))
-                    const el = document.getElementById(guestId("hubspot", data.slug))
-                    changeUsersCurrentQuantity(true)
-                    el.querySelector('.remove-user').addEventListener("click", () => removeUser(el))
+                    if(!hubspotUrls.includes(data.hubspot_url)) {
+                        console.log(data)
+                        const obj = {}
+                        obj[data.email] = data.slug
+                        users.hubspot.push(obj)
+                        names.push(data.username)
+                        guestsList.insertAdjacentHTML("beforeend", guestTemplate(data.username, '../imgs/hubspot_logo.png', "hubspot", data.slug))
+        
+                        dotsContainer.classList.remove("hidden")
+                        loadCalendar(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0))
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(freeDays)
+                                clearFreeDays()
+                                console.log(freeDays)
+                                // console.log(data)
+                                addFreeDays(data)
+                                console.log(freeDays)
+                                dotsContainer.classList.add("hidden")
+                                initCalendar()
+                            })
+                            .catch(err => console.log(err))
+                        const el = document.getElementById(guestId("hubspot", data.slug))
+                        changeUsersCurrentQuantity(true)
+                        el.querySelector('.remove-user').addEventListener("click", () => removeUser(el))
+
+                        hubspotUrls.push(data.hubspot_url)
+                    } else {
+                        alertText.innerText = 'User Already Added'
+                        alert.style.transition = 'all .3s ease'
+                        alert.style.top = '60px'
+                        alert.style.opacity = '1'
+                        alert.style.visibility = 'visible'
+                        showError()
+                    }
                 })
             } else {
                 alertText.innerText = 'User Already Added'
@@ -418,11 +442,22 @@ function clearFreeDays() {
 // `${service}-${toLowercaseArray(getUsers(service)).indexOf(slug.toLowerCase())}`
 function removeUser(userHTMLElement) {
     const id = userHTMLElement.id,
-          service = id.split('-')[0],
-          index = id.split('-')[1]
+          service = id.split('-')[0] //,
+        //   index = id.split('-')[1]
+
+    const tags = Array.from(document.querySelectorAll('.guest'))
+    const i = tags.findIndex(el => el == userHTMLElement) + 1
     
-    if(service == "calendly") users.calendly = users.calendly.filter(el => el != users.calendly[index])
-    else users.hubspot = users.hubspot.filter(el => el != users.hubspot[index]) 
+    if(service == "calendly") {
+        users.calendly = users.calendly.filter(el => el != users.calendly[i])
+        calendlyUrls = calendlyUrls.filter(el => el != calendlyUrls[i])
+    }
+    else {
+        users.hubspot = users.hubspot.filter(el => el != users.hubspot[i])
+        hubspotUrls = hubspotUrls.filter(el => el != hubspotUrls[i])
+    } 
+    names = names.filter(el => el != names[i])
+
     userHTMLElement.remove()
 
     changeUsersCurrentQuantity(false)
@@ -492,6 +527,7 @@ getUserInfo()
     .then(response => response.json())
     .then(data => {
         console.log(data)
+        calendlyUrls.push(data.calendly_url)
         const obj = {}
         obj[data.email] = data.calendly_url
         users.calendly.push(obj)

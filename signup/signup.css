@@ -8,6 +8,10 @@ a {
     text-decoration: none;
 }
 
+a:not(.link-text):visited {
+    color: inherit;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -80,7 +84,7 @@ input:focus, button:focus {
 /* Header */
 .header {
     width: 100vw;
-    height: 89px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -96,26 +100,26 @@ input:focus, button:focus {
     justify-content: center;
 }
 
-.logo__img img {
+.logo__img {
     height: 44px;
     width: auto;
 }
 
 .logo__text {
-    font-family: "Poppins", sans-serif;
-    position: relative;
-    left: 5px;
+    margin-left: 7px;
+    margin-top: -7px;
 }
 
 .text1 {
     font-weight: 700;
     font-size: 23px;
     position: relative;
-    top: 1px;
-    color: #000;   
+    top: 8px;
+    color: #000; 
+    font-family: "Poppins", sans-serif;  
 }
 
-.text2 {
+.text2 a{
     font-size: 8px;
     color: #1400FF;
     letter-spacing: 5px;
@@ -127,7 +131,6 @@ input:focus, button:focus {
     top: -5px;
     left: 2px;
 }
-
 .link {
     color: #2F436D;
     font-family: "Istok Web", sans-serif;
@@ -136,6 +139,10 @@ input:focus, button:focus {
 .link-text {
     color: #0069FF;
     position: relative;
+}
+
+.link-text:visited {
+    color: #0069FF;
 }
 
 .link-text::after {
@@ -157,13 +164,13 @@ input:focus, button:focus {
 /* Main */
 .main {
     width: 100vw;
-    height: calc(100vh - 89px - 2px);
+    height: calc(100vh - 80px - 2px);
     padding: 150px 225px 210px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    background-image: url("../imgs/signup-background.svg");
+    background-image: url('../imgs/signup-background.svg');
     background-position: center;
     background-size: cover;
 }
@@ -369,12 +376,13 @@ form {
 
 .g p {
     font-family: "Poppins", sans-serif;
-    font-size: clamp(16px, 1.15vw, 22px);
+    font-size: 22px;
     font-weight: 500;
     color: #fff;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    white-space: nowrap;
 }
 
 .google-signin {
@@ -426,7 +434,7 @@ form {
 .btn-text {
     font-family: "Istok Web", sans-serif;
     color: #fff;
-    font-size: clamp(16px, 1.3vw, 25px);
+    font-size: 25px;
     font-weight: 700;
     transition: all .2s linear;  
 }
@@ -440,12 +448,6 @@ form {
     visibility: hidden;
     opacity: 0;
 }
-
-
-
-
-
-
 
 /* Adaptive */
 /* width */
@@ -522,6 +524,10 @@ form {
         width: 69vw;
     }
 
+    .g p, #btn p {
+        font-size: clamp(14px, 3.8vw, 18px);
+    }
+
     .text {
         margin-top: 83px;
     }
@@ -532,7 +538,7 @@ form {
 
     .g p {
         width: 200px; 
-        margin-left: 36px;  
+        margin-left: 7px;  
     }
 
     .g img {
@@ -601,8 +607,6 @@ form {
     .main {
         padding-bottom: 8.47vh;
     }
-
-    
 }
 
 @media (max-height: 860px) and (min-width: 1300px) {
@@ -622,5 +626,34 @@ form {
 @media (max-height: 781px) and (min-width: 1300px) {
     .form {
         margin-top: -100px;
+    }
+}
+
+@media (max-width: 600px) {
+    .text1 {
+        font-size: 18px;
+    }
+
+    .text2 a {
+        font-size: 5px;
+        letter-spacing: 4.5px;
+        top: -7px;
+    }
+
+    .logo__image {
+        width: 43px;
+        height: auto;
+    }
+
+    .hcontainer {
+      height: 76px;
+    }
+}
+
+@media (max-width: 675px) {
+    .g p {
+        font-size: 18px;
+        width: 180px;
+        left: 57%;
     }
 }
